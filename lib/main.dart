@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/views/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,7 +13,7 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainMenu(),
+      home: const Game(),
     ),
   );
 }
@@ -61,7 +62,14 @@ class MainMenu extends StatelessWidget {
                   // add shadow to the button
                   elevation: 15,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Game(),
+                    ),
+                  );
+                },
                 child: const Text(
                   'New Game',
                   style: TextStyle(
