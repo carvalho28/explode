@@ -77,6 +77,11 @@ flutter:
     - family: JollyLodger
       fonts:
         - asset: assets/fonts/JollyLodger-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
 
   #   - family: Schyler
   #     fonts:

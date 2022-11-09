@@ -6,3 +6,4 @@ const Color secondaryColor = Color(0xFFEE6C4D);
 
 // const for font family
 const String fontTitle = 'JollyLodger';
+const String fontBody = 'Roboto';

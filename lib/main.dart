@@ -58,13 +58,15 @@ class MainMenu extends StatelessWidget {
                     horizontal: 50,
                     vertical: 20,
                   ),
+                  // add shadow to the button
+                  elevation: 15,
                 ),
                 onPressed: () {},
                 child: const Text(
-                  'Start',
+                  'New Game',
                   style: TextStyle(
                     fontSize: 30,
-                    fontFamily: 'PressStart2P',
+                    fontFamily: fontBody,
                   ),
                 ),
               ),
@@ -82,6 +84,7 @@ class MainMenu extends StatelessWidget {
                     horizontal: 50,
                     vertical: 20,
                   ),
+                  elevation: 15,
                 ),
                 onPressed: () {
                   if (Platform.isAndroid) {
@@ -94,7 +97,7 @@ class MainMenu extends StatelessWidget {
                   'Quit',
                   style: TextStyle(
                     fontSize: 30,
-                    fontFamily: 'PressStart2P',
+                    fontFamily: fontBody,
                   ),
                 ),
               ),
