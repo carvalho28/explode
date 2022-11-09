@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:explode/constants/general.dart';
-import 'package:explode/views/main_view.dart';
+import 'package:explode/views/main_game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -63,6 +63,12 @@ class MainMenu extends StatelessWidget {
                   elevation: 15,
                 ),
                 onPressed: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const Game(),
+                  //   ),
+                  // );
                   Navigator.push(
                     context,
                     MaterialPageRoute(
