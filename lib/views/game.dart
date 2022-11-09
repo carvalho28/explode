@@ -143,11 +143,12 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
             backgroundColor: secondaryColor,
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32.0),
+              borderRadius: BorderRadius.circular(16.0),
             ),
+            // button padding
             padding: const EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 20,
+              horizontal: 40,
+              vertical: 10,
             ),
             // add shadow to the button
             elevation: 15,
@@ -272,17 +273,19 @@ class _GameState extends State<Game> {
         elevation: 0,
       ),
       backgroundColor: primaryColor,
-      body: Column(
-        children: [
-          const TimerWidget(startingTime: 5),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30,
-              vertical: 80,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const TimerWidget(startingTime: 20),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 30,
+                vertical: 80,
+              ),
+              child: const ExpressionGenerator(),
             ),
-            child: const ExpressionGenerator(),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

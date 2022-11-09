@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/views/game_over.dart';
 import 'package:flutter/material.dart';
 
 class TimerWidget extends StatefulWidget {
@@ -26,8 +27,7 @@ class _TimerWidgetState extends State<TimerWidget> {
           _timeRemaining--;
         } else {
           timer.cancel();
-          // Navigator.push(
-          //   context,
+          // Navigator.of(context).pushReplacement(
           //   MaterialPageRoute(
           //     builder: (context) => const GameOver(),
           //   ),
@@ -45,12 +45,29 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Time Left: $_timeRemaining',
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 30,
-        fontFamily: fontBody,
+    return SizedBox(
+      width: 80,
+      height: 80,
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: CircularProgressIndicator(
+              value: _timeRemaining / widget.startingTime,
+              backgroundColor: Colors.white,
+              valueColor: const AlwaysStoppedAnimation<Color>(secondaryColor),
+            ),
+          ),
+          Center(
+            child: Text(
+              _timeRemaining.toString(),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontFamily: fontBody,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

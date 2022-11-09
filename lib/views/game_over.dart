@@ -47,9 +47,10 @@ class _GameOverState extends State<GameOver> {
               ),
               onPressed: () {
                 // restart the game
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainMenu()),
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const MainMenu(),
+                  ),
                 );
               },
               child: const Text(

@@ -57,8 +57,7 @@ class MainMenu extends StatelessWidget {
                 elevation: 15,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
+                Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => const Game(),
                   ),
