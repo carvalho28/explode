@@ -23,7 +23,7 @@ class _GameOverState extends State<GameOver> {
               'Game Over',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 120,
+                fontSize: 100,
                 fontFamily: fontTitle,
               ),
             ),

@@ -27,11 +27,11 @@ class _TimerWidgetState extends State<TimerWidget> {
           _timeRemaining--;
         } else {
           timer.cancel();
-          // Navigator.of(context).pushReplacement(
-          //   MaterialPageRoute(
-          //     builder: (context) => const GameOver(),
-          //   ),
-          // );
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const GameOver(),
+            ),
+          );
         }
       });
     });
