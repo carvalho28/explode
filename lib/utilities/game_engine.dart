@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:explode/constants/general.dart';
 import 'package:explode/utilities/verification_icon.dart';
+import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
 
 class PairExpRes {
@@ -13,8 +14,11 @@ class PairExpRes {
 
 // widget to present random equations to the user and check if the answer is correct
 class ExpressionGenerator extends StatefulWidget {
-  const ExpressionGenerator(
-      {super.key, required this.operators, required this.difficulty});
+  const ExpressionGenerator({
+    super.key,
+    required this.operators,
+    required this.difficulty,
+  });
 
   final List<String> operators;
   final String difficulty;
@@ -34,10 +38,10 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   // generate random operators
   final Random operator = Random();
   late final TextEditingController _answer = TextEditingController();
-  // variable to increment the correct answers
-  int correctAnswers = 0;
-  // variable to increment the wrong answers
-  int wrongAnswers = 0;
+
+  // variables to store the correct answer
+  late int correctAnswers = 0;
+  late int wrongAnswers = 0;
 
   @override
   void initState() {
@@ -151,6 +155,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
     PairExpRes pairEquation = generateEquation();
     String equation = pairEquation.s;
     String result = pairEquation.x.toString();
+
     return Center(
       child: Column(
         children: [
@@ -240,8 +245,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                     },
                   );
                   incrementCorrect();
-                  print('Corrects: $correctAnswers');
-                  print('Wrongs: $wrongAnswers');
                 } else {
                   _answer.clear();
                   incrementWrong();
@@ -253,8 +256,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                       );
                     },
                   );
-                  print('Corrects: $correctAnswers');
-                  print('Wrongs: $wrongAnswers');
                 }
               }
             },

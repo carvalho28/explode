@@ -4,6 +4,8 @@ import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
 import 'package:explode/views/difficulty.dart';
 import 'package:explode/views/game.dart';
+import 'package:explode/views/game_over.dart';
+import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,18 +17,26 @@ void main() {
       theme: ThemeData(
         backgroundColor: primaryColor,
       ),
-      home: const Game(
-        operators: ['+', '-', 'x', '/'],
-        difficulty: '1',
-        time: '5',
-      ),
+      home: const MainMenu(),
+      // const Record(
+      //   correctAnswers: 5,
+      // ),
+      //     const Game(
+      //   operators: ['+', '-', 'x', '/'],
+      //   difficulty: '1',
+      //   time: '5',
+      // ),
       routes: {
         mainMenuRoute: (context) => const MainMenu(),
         difficultyRoute: (context) => const Difficulty(),
         gameRoute: (context) => const Game(
               operators: ['+', '-', 'x', '/'],
               difficulty: '1',
-              time: '5',
+              time: '50',
+            ),
+        gameOverRoute: (context) => const GameOver(),
+        recordRoute: (context) => const Record(
+              correctAnswers: 1,
             ),
       },
     ),

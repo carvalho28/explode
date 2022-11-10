@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
+import 'package:explode/utilities/game_engine.dart';
 import 'package:explode/views/game_over.dart';
+import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
 
 class TimerWidget extends StatefulWidget {
@@ -17,6 +19,7 @@ class TimerWidget extends StatefulWidget {
 class _TimerWidgetState extends State<TimerWidget> {
   late Timer _timer;
   late int _timeRemaining;
+  late int correctAnswers;
 
   @override
   void initState() {
@@ -28,9 +31,16 @@ class _TimerWidgetState extends State<TimerWidget> {
           _timeRemaining--;
         } else {
           timer.cancel();
-          // Navigator.of(context).pushNamedAndRemoveUntil(
-          //   gameOverRoute,
-          //   (route) => false,
+          // get the number of correct answers
+          // correctAnswers = ExpressionGenerator.correctAnswers;
+          // send the number of correct answers to the record screen
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => Record(
+          //       correctAnswers: correctAnswers,
+          //     ),
+          //   ),
           // );
         }
       });

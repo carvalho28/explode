@@ -302,10 +302,19 @@ class _DifficultyState extends State<Difficulty> {
                   );
                 }
                 // if the user selected at least one operator and a difficulty
-                if (checkOperators() && selectedDifficulty != '') {
-                  // navigate to the game page
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    gameRoute,
+                if (checkOperators() &&
+                    selectedDifficulty != '' &&
+                    selectedTime != '') {
+                  // navigate to the game page without button to go back
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => Game(
+                        operators: selectedOperators,
+                        difficulty: selectedDifficulty,
+                        time: selectedTime,
+                      ),
+                    ),
                     (route) => false,
                   );
                 }

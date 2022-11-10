@@ -18,7 +18,8 @@ class _VerificationIconState extends State<VerificationIcon> {
     Future<void>.delayed(const Duration(milliseconds: 300), () {
       setState(() {
         // after a second, remove the widget
-        Navigator.of(context).pop();
+        // pop without restarting the widget
+        Navigator.pop(context);
       });
     });
   }
