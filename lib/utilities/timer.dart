@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:explode/constants/general.dart';
-import 'package:explode/constants/routes.dart';
 import 'package:explode/utilities/game_engine.dart';
-import 'package:explode/views/game_over.dart';
 import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
 
@@ -32,16 +30,7 @@ class _TimerWidgetState extends State<TimerWidget> {
         } else {
           timer.cancel();
           // get the number of correct answers
-          // correctAnswers = ExpressionGenerator.correctAnswers;
-          // send the number of correct answers to the record screen
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => Record(
-          //       correctAnswers: correctAnswers,
-          //     ),
-          //   ),
-          // );
+
         }
       });
     });

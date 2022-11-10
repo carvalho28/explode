@@ -40,8 +40,8 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   late final TextEditingController _answer = TextEditingController();
 
   // variables to store the correct answer
-  late int correctAnswers = 0;
-  late int wrongAnswers = 0;
+  ValueNotifier<int> correctAnswers = ValueNotifier(0);
+  ValueNotifier<int> wrongAnswers = ValueNotifier(0);
 
   @override
   void initState() {
@@ -57,23 +57,16 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   // increment the number of correct answers
   void incrementCorrect() {
     setState(() {
-      correctAnswers++;
+      correctAnswers.value++;
     });
   }
 
   // increment the number of wrong answers
   void incrementWrong() {
+    // increment the number of wrong answers
     setState(() {
-      wrongAnswers++;
+      wrongAnswers.value++;
     });
-  }
-
-  // get the correct answer and wrong answers
-  List<PairExpRes> getResults() {
-    return <PairExpRes>[
-      PairExpRes('Correct', correctAnswers),
-      PairExpRes('Wrong', wrongAnswers),
-    ];
   }
 
   // funtion to generate a random equation based on the difficulty and operators
