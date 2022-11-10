@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/views/difficulty.dart';
 import 'package:explode/views/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +14,7 @@ void main() {
       theme: ThemeData(
         backgroundColor: primaryColor,
       ),
-      home: const Game(),
+      home: const Difficulty(),
     ),
   );
 }
@@ -59,7 +60,7 @@ class MainMenu extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => const Game(),
+                    builder: (context) => const Difficulty(),
                   ),
                 );
               },
