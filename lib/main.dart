@@ -14,7 +14,11 @@ void main() {
       theme: ThemeData(
         backgroundColor: primaryColor,
       ),
-      home: const Difficulty(),
+      home: const Game(
+        operators: ['+', '-', 'x', '/'],
+        difficulty: '1',
+        time: '5',
+      ),
     ),
   );
 }

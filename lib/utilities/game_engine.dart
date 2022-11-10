@@ -240,11 +240,8 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                     },
                   );
                   incrementCorrect();
-                  setState(() {
-                    pairEquation = generateEquation();
-                    equation = pairEquation.s;
-                    result = pairEquation.x.toString();
-                  });
+                  print('Corrects: $correctAnswers');
+                  print('Wrongs: $wrongAnswers');
                 } else {
                   _answer.clear();
                   incrementWrong();

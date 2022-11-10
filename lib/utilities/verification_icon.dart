@@ -43,20 +43,5 @@ class _VerificationIconState extends State<VerificationIcon> {
         ),
       ),
     );
-    // return Container(
-    //   width: 10,
-    //   height: 10,
-    //   decoration: BoxDecoration(
-    //     color: widget.correct ? correctColor : incorrectColor,
-    //     borderRadius: BorderRadius.circular(50),
-    //   ),
-    //   child: Center(
-    //     child: Icon(
-    //       widget.correct ? Icons.check : Icons.close,
-    //       color: Colors.white,
-    //       size: 50,
-    //     ),
-    //   ),
-    // );
   }
 }

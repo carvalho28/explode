@@ -16,17 +16,22 @@ class _DifficultyState extends State<Difficulty> {
   final List<String> operators = <String>['+', '-', '*', '/'];
   // list with all difficulties
   final List<String> difficulties = <String>['1', '2', '3', '4'];
+  // list with all possible times
+  final List<String> times = <String>['20', '60', '90', '120'];
 
   // selected operators
   List<String> selectedOperators = <String>[];
   // selected difficulty
   String selectedDifficulty = '';
+  // selected time
+  String selectedTime = '';
 
   @override
   void initState() {
     selectedOperators.add(operators[0]);
     selectedOperators.add(operators[1]);
     selectedDifficulty = difficulties[0];
+    selectedTime = times[0];
     super.initState();
   }
 
@@ -37,14 +42,6 @@ class _DifficultyState extends State<Difficulty> {
     }
     return true;
   }
-
-  // function to check if the user selected a difficulty
-  // bool checkDifficulty() {
-  //   if (selectedDifficulty) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +56,11 @@ class _DifficultyState extends State<Difficulty> {
         child: Column(
           children: [
             const SizedBox(
-              height: 100,
+              height: 10,
             ),
             //  text with choose operations
             const Text(
-              'Choose Operations:',
+              'Operations:',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 30,
@@ -126,7 +123,7 @@ class _DifficultyState extends State<Difficulty> {
               height: 50,
             ),
             const Text(
-              'Choose Difficulty:',
+              'Difficulty:',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 30,
@@ -188,6 +185,70 @@ class _DifficultyState extends State<Difficulty> {
             const SizedBox(
               height: 50,
             ),
+            // time choice
+            const Text(
+              'Time:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontFamily: fontBody,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            // time choice
+            Wrap(
+              // color
+              children: times
+                  .map(
+                    (String time) => Container(
+                      margin: const EdgeInsets.all(10),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: selectedTime == time
+                              ? secondaryColor
+                              : Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 20,
+                          ),
+                          // add shadow to the button
+                          elevation: 15,
+                        ),
+                        onPressed: () {
+                          // if the time is already selected, remove it
+                          if (selectedTime == time) {
+                            selectedTime = '';
+                          } else {
+                            // if the time is not selected, add it
+                            selectedTime = time;
+                          }
+                          // update the state
+                          setState(() {});
+                          print(selectedTime);
+                        },
+                        child: Text(
+                          time,
+                          style: TextStyle(
+                            color: selectedTime == time
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 20,
+                            fontFamily: fontBody,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
             // button to start the game
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -206,6 +267,39 @@ class _DifficultyState extends State<Difficulty> {
                 print('start game');
                 print(selectedOperators);
                 print(selectedDifficulty);
+                print(selectedTime);
+                if (selectedOperators.isEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Error'),
+                        content:
+                            const Text('Please select at least one operator'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else if (selectedDifficulty.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please select a difficulty'),
+                    ),
+                  );
+                } else if (selectedTime.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please select a time'),
+                    ),
+                  );
+                }
                 // if the user selected at least one operator and a difficulty
                 if (checkOperators() && selectedDifficulty != '') {
                   // navigate to the game page
@@ -214,6 +308,7 @@ class _DifficultyState extends State<Difficulty> {
                       builder: (BuildContext context) => Game(
                         operators: selectedOperators,
                         difficulty: selectedDifficulty,
+                        time: selectedTime,
                       ),
                     ),
                   );
