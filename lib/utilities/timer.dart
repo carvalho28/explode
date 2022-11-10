@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/constants/routes.dart';
 import 'package:explode/views/game_over.dart';
 import 'package:flutter/material.dart';
 
@@ -27,10 +28,9 @@ class _TimerWidgetState extends State<TimerWidget> {
           _timeRemaining--;
         } else {
           timer.cancel();
-          // Navigator.of(context).pushReplacement(
-          //   MaterialPageRoute(
-          //     builder: (context) => const GameOver(),
-          //   ),
+          // Navigator.of(context).pushNamedAndRemoveUntil(
+          //   gameOverRoute,
+          //   (route) => false,
           // );
         }
       });
@@ -50,10 +50,9 @@ class _TimerWidgetState extends State<TimerWidget> {
           _timeRemaining--;
         } else {
           timer.cancel();
-          // Navigator.of(context).pushReplacement(
-          //   MaterialPageRoute(
-          //     builder: (context) => const GameOver(),
-          //   ),
+          // Navigator.of(context).pushNamedAndRemoveUntil(
+          //   gameOverRoute,
+          //   (route) => false,
           // );
         }
       });

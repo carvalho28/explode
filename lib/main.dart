@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/constants/routes.dart';
 import 'package:explode/views/difficulty.dart';
 import 'package:explode/views/game.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,15 @@ void main() {
         difficulty: '1',
         time: '5',
       ),
+      routes: {
+        mainMenuRoute: (context) => const MainMenu(),
+        difficultyRoute: (context) => const Difficulty(),
+        gameRoute: (context) => const Game(
+              operators: ['+', '-', 'x', '/'],
+              difficulty: '1',
+              time: '5',
+            ),
+      },
     ),
   );
 }
@@ -52,7 +62,7 @@ class MainMenu extends StatelessWidget {
                 backgroundColor: secondaryColor,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 50,
@@ -62,11 +72,7 @@ class MainMenu extends StatelessWidget {
                 elevation: 15,
               ),
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const Difficulty(),
-                  ),
-                );
+                Navigator.of(context).pushNamed(difficultyRoute);
               },
               child: const Text(
                 'New Game',
@@ -84,7 +90,7 @@ class MainMenu extends StatelessWidget {
                 backgroundColor: secondaryColor,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 50,

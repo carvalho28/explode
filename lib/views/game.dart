@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/constants/routes.dart';
 import 'package:explode/main.dart';
 import 'package:explode/utilities/game_engine.dart';
 import 'package:explode/utilities/timer.dart';
@@ -56,10 +57,9 @@ class _GameState extends State<Game> {
             IconButton(
               icon: const Icon(Icons.exit_to_app_outlined),
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const MainMenu(),
-                  ),
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  mainMenuRoute,
+                  (route) => false,
                 );
               },
             ),

@@ -1,4 +1,5 @@
 import 'package:explode/constants/general.dart';
+import 'package:explode/constants/routes.dart';
 import 'package:explode/views/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -48,15 +49,15 @@ class _DifficultyState extends State<Difficulty> {
     // scaffold for user to choose the difficulty and the operators
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: primaryColor,
+        elevation: 10,
       ),
       backgroundColor: primaryColor,
       body: Center(
         child: Column(
           children: [
             const SizedBox(
-              height: 10,
+              height: 40,
             ),
             //  text with choose operations
             const Text(
@@ -303,14 +304,9 @@ class _DifficultyState extends State<Difficulty> {
                 // if the user selected at least one operator and a difficulty
                 if (checkOperators() && selectedDifficulty != '') {
                   // navigate to the game page
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => Game(
-                        operators: selectedOperators,
-                        difficulty: selectedDifficulty,
-                        time: selectedTime,
-                      ),
-                    ),
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    gameRoute,
+                    (route) => false,
                   );
                 }
               },
