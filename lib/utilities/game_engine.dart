@@ -4,11 +4,11 @@ import 'package:explode/constants/general.dart';
 import 'package:explode/utilities/verification_icon.dart';
 import 'package:flutter/material.dart';
 
-class Pair {
+class PairExpRes {
   String s;
   int x;
 
-  Pair(this.s, this.x);
+  PairExpRes(this.s, this.x);
 }
 
 // widget to present random equations to the user and check if the answer is correct
@@ -24,9 +24,11 @@ class ExpressionGenerator extends StatefulWidget {
 }
 
 class _ExpressionGeneratorState extends State<ExpressionGenerator> {
-  // list of all the possible operators
-  final List<String> operators = <String>['+', '-', '*', '/'];
-  // generate random numbers between 0 and 10
+  // variables from the Game class
+  late List<String> operators = widget.operators;
+  late String difficulty = widget.difficulty;
+
+  // generate random numbers
   final Random number1 = Random();
   final Random number2 = Random();
   // generate random operators
@@ -63,32 +65,56 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   }
 
   // get the correct answer and wrong answers
-  List<Pair> getResults() {
-    return <Pair>[
-      Pair('Correct', correctAnswers),
-      Pair('Wrong', wrongAnswers),
+  List<PairExpRes> getResults() {
+    return <PairExpRes>[
+      PairExpRes('Correct', correctAnswers),
+      PairExpRes('Wrong', wrongAnswers),
     ];
   }
 
-  // function to generate random equation
-  Pair generateEquation() {
-    // generate random numbers between 0 and 10
-    final int num1 = number1.nextInt(10);
-    final int num2 = number2.nextInt(10);
-    // generate random operator
-    final String op = operators[operator.nextInt(4)];
-
-    final String expression = '$num1 $op $num2';
-
-    // if division by zero, generate new equation
-    if (op == '/' && num2 == 0) {
-      return generateEquation();
+  // funtion to generate a random equation based on the difficulty and operators
+  PairExpRes generateEquation() {
+    String equation = '';
+    int result = 0;
+    switch (difficulty) {
+      case '1':
+        {
+          final int num1 = number1.nextInt(10);
+          final int num2 = number2.nextInt(10);
+          final int op = operator.nextInt(operators.length);
+          equation = '$num1 ${operators[op]} $num2';
+          result = calculateResult(num1, num2, operators[op]);
+        }
+        break;
+      case '2':
+        {
+          final int num1 = number1.nextInt(100);
+          final int num2 = number2.nextInt(100);
+          final int op = operator.nextInt(operators.length);
+          equation = '$num1 ${operators[op]} $num2';
+          result = calculateResult(num1, num2, operators[op]);
+        }
+        break;
+      case '3':
+        {
+          final int num1 = number1.nextInt(1000);
+          final int num2 = number2.nextInt(1000);
+          final int op = operator.nextInt(operators.length);
+          equation = '$num1 ${operators[op]} $num2';
+          result = calculateResult(num1, num2, operators[op]);
+        }
+        break;
+      case '4':
+        {
+          final int num1 = number1.nextInt(10000);
+          final int num2 = number2.nextInt(10000);
+          final int op = operator.nextInt(operators.length);
+          equation = '$num1 ${operators[op]} $num2';
+          result = calculateResult(num1, num2, operators[op]);
+        }
+        break;
     }
-
-    // get the result of the equation
-    final int result = calculateResult(num1, num2, op);
-
-    return Pair(expression, result);
+    return PairExpRes(equation, result);
   }
 
   // function to calculate the result of the equation
@@ -122,7 +148,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
 
   @override
   Widget build(BuildContext context) {
-    Pair pairEquation = generateEquation();
+    PairExpRes pairEquation = generateEquation();
     String equation = pairEquation.s;
     String result = pairEquation.x.toString();
     return Center(

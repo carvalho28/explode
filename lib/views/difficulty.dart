@@ -209,7 +209,7 @@ class _DifficultyState extends State<Difficulty> {
                 // if the user selected at least one operator and a difficulty
                 if (checkOperators() && selectedDifficulty != '') {
                   // navigate to the game page
-                  Navigator.of(context).push(
+                  Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (BuildContext context) => Game(
                         operators: selectedOperators,
