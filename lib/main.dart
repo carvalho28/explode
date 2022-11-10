@@ -13,7 +13,7 @@ void main() {
       theme: ThemeData(
         backgroundColor: primaryColor,
       ),
-      home: const MainMenu(),
+      home: const Game(),
     ),
   );
 }

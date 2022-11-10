@@ -27,11 +27,34 @@ class _TimerWidgetState extends State<TimerWidget> {
           _timeRemaining--;
         } else {
           timer.cancel();
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => const GameOver(),
-            ),
-          );
+          // Navigator.of(context).pushReplacement(
+          //   MaterialPageRoute(
+          //     builder: (context) => const GameOver(),
+          //   ),
+          // );
+        }
+      });
+    });
+  }
+
+  // function to freeze the timer
+  void freezeTimer() {
+    _timer.cancel();
+  }
+
+  // function to unfreeze the timer
+  void unfreezeTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_timeRemaining > 0) {
+          _timeRemaining--;
+        } else {
+          timer.cancel();
+          // Navigator.of(context).pushReplacement(
+          //   MaterialPageRoute(
+          //     builder: (context) => const GameOver(),
+          //   ),
+          // );
         }
       });
     });

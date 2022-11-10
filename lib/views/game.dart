@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:explode/constants/general.dart';
 import 'package:explode/utilities/timer.dart';
+import 'package:explode/utilities/verification_icon.dart';
 import 'package:flutter/material.dart';
 
 class Game extends StatefulWidget {
@@ -90,8 +91,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
 
   // function to check if the answer is correct
   bool checkAnswer(String answer, int result) {
-    print('answer: $answer');
-    print('result: $result');
     if (int.parse(answer) == result) {
       return true;
     } else {
@@ -136,7 +135,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
           ),
         ),
         const SizedBox(
-          height: 50,
+          height: 40,
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -154,56 +153,14 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
             elevation: 15,
           ),
           onPressed: () {
-            if (_answer.text.isEmpty) {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text('Please enter an answer'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
             if (_answer.text.isNotEmpty) {
               if (checkAnswer(result, int.parse(_answer.text))) {
                 _answer.clear();
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text(
-                        'Correct!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontFamily: fontBody,
-                        ),
-                      ),
-                      backgroundColor: correctColor,
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text(
-                            'OK',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontFamily: fontBody,
-                            ),
-                          ),
-                        ),
-                      ],
+                    return const VerificationIcon(
+                      correct: true,
                     );
                   },
                 );
@@ -214,35 +171,11 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                 });
               } else {
                 _answer.clear();
-                // pretty alert to show the user that the answer is wrong
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text(
-                        'Wrong!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontFamily: fontBody,
-                        ),
-                      ),
-                      backgroundColor: incorrectColor,
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text(
-                            'OK',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontFamily: fontBody,
-                            ),
-                          ),
-                        ),
-                      ],
+                    return const VerificationIcon(
+                      correct: false,
                     );
                   },
                 );
@@ -258,6 +191,41 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
             ),
           ),
         ),
+        const SizedBox(
+          height: 10,
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: tertiaryColor,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            // button padding
+            padding: const EdgeInsets.symmetric(
+              horizontal: 40,
+              vertical: 10,
+            ),
+            // add shadow to the button
+            elevation: 15,
+          ),
+          onPressed: () {
+            _answer.clear();
+            setState(() {
+              pairEquation = generateEquation();
+              equation = pairEquation.s;
+              result = pairEquation.x.toString();
+            });
+          },
+          child: const Text(
+            'Skip',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontFamily: fontBody,
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -266,15 +234,19 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
 class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // invisible app bar
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      backgroundColor: primaryColor,
-      body: SingleChildScrollView(
-        child: Column(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        // invisible app bar
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        backgroundColor: primaryColor,
+        body: Column(
           children: [
             const TimerWidget(startingTime: 20),
             Container(
