@@ -40,8 +40,8 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   late final TextEditingController _answer = TextEditingController();
 
   // variables to store the correct answer
-  ValueNotifier<int> correctAnswers = ValueNotifier(0);
-  ValueNotifier<int> wrongAnswers = ValueNotifier(0);
+  int _correctAnswers = 0;
+  int _wrongAnswers = 0;
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   // increment the number of correct answers
   void incrementCorrect() {
     setState(() {
-      correctAnswers.value++;
+      _correctAnswers++;
     });
   }
 
@@ -65,7 +65,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   void incrementWrong() {
     // increment the number of wrong answers
     setState(() {
-      wrongAnswers.value++;
+      _wrongAnswers++;
     });
   }
 
@@ -226,7 +226,8 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
               elevation: 15,
             ),
             onPressed: () {
-              if (_answer.text.isNotEmpty) {
+              if (_answer.text.isNotEmpty &&
+                  RegExp(r'^-?[0-9]+$').hasMatch(_answer.text)) {
                 if (checkAnswer(result, int.parse(_answer.text))) {
                   _answer.clear();
                   showDialog(
