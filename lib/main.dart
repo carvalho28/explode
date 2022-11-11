@@ -26,25 +26,17 @@ void main() {
           backgroundColor: primaryColor,
         ),
         home: const MainMenu(),
-        // const Record(
-        //   correctAnswers: 5,
-        // ),
-        //     const Game(
-        //   operators: ['+', '-', 'x', '/'],
-        //   difficulty: '1',
-        //   time: '5',
-        // ),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
           difficultyRoute: (context) => const Difficulty(),
           gameRoute: (context) => const Game(
-                operators: ['+', '-', 'x', '/'],
+                operators: ['+', '-'],
                 difficulty: '1',
-                time: '50',
+                time: '2',
               ),
           gameOverRoute: (context) => const GameOver(),
           recordRoute: (context) => const Record(
-                correctAnswers: 1,
+                correctAnswers: 10,
               ),
         },
       ),

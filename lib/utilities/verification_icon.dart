@@ -15,18 +15,16 @@ class _VerificationIconState extends State<VerificationIcon> {
   @override
   void initState() {
     super.initState();
-    Future<void>.delayed(const Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       setState(() {
-        // after a second, remove the widget
-        // pop without restarting the widget
-        Navigator.pop(context);
+        // close the widget without restarting the game twice
+        Navigator.of(context).pop();
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // wrap the container to not occupy the whole screen
     return Center(
       child: Container(
         width: 100,

@@ -43,6 +43,8 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
 
   @override
   void initState() {
+    Provider.of<Answers>(context, listen: false).resetCorrect();
+    Provider.of<Answers>(context, listen: false).resetWrong();
     super.initState();
   }
 

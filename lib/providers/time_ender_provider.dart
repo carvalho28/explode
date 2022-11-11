@@ -7,11 +7,15 @@ class EndTimer with ChangeNotifier {
 
   void changeEndTimer(bool value) {
     _endTimer = value;
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   void resetEndTimer() {
     _endTimer = false;
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 }

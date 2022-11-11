@@ -9,21 +9,29 @@ class Answers with ChangeNotifier {
 
   void incrementCorrect() {
     _correctAnswers++;
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   void incrementWrong() {
     _wrongAnswers++;
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   void resetCorrect() {
     _correctAnswers = 0;
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   void resetWrong() {
     _wrongAnswers = 0;
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 }

@@ -10,6 +10,7 @@ import 'package:explode/utilities/timer.dart';
 import 'package:explode/utilities/verification_icon.dart';
 import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 class Game extends StatefulWidget {
@@ -49,63 +50,62 @@ class _GameState extends State<Game> {
     EndTimer timeEnder = Provider.of<EndTimer>(context);
     Answers answers = Provider.of<Answers>(context);
 
-    // if the time is over, go to the results page
     if (timeEnder.endTimer) {
-      Future.delayed(Duration.zero, () {
+      int correctAnswers = answers.correctAnswers;
+      SchedulerBinding.instance.addPostFrameCallback((_) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => Record(
-              correctAnswers: answers.correctAnswers,
-            ),
+            builder: (context) => Record(correctAnswers: correctAnswers),
           ),
           (route) => false,
         );
       });
+      return const Scaffold();
+    } else {
+      return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          // invisible app bar
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            // icon to go back to the main menu on the top right corner
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.exit_to_app_outlined),
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    mainMenuRoute,
+                    (route) => false,
+                  );
+                },
+              ),
+            ],
+          ),
+          backgroundColor: primaryColor,
+          body: Column(
+            children: [
+              TimerWidget(
+                startingTime: _time,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 70,
+                ),
+                child: ExpressionGenerator(
+                  operators: _operators,
+                  difficulty: _difficulty,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     }
-
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        // invisible app bar
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          // icon to go back to the main menu on the top right corner
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.exit_to_app_outlined),
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  mainMenuRoute,
-                  (route) => false,
-                );
-              },
-            ),
-          ],
-        ),
-        backgroundColor: primaryColor,
-        body: Column(
-          children: [
-            TimerWidget(
-              startingTime: _time,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 30,
-                vertical: 70,
-              ),
-              child: ExpressionGenerator(
-                operators: _operators,
-                difficulty: _difficulty,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:explode/constants/general.dart';
+import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -19,13 +20,14 @@ class Record extends StatefulWidget {
 }
 
 class _RecordState extends State<Record> {
-  late int _correctAnswers;
+  late int _correctAnswers = 0;
   late SharedPreferences _prefs;
 
   @override
   void initState() {
+    print(_correctAnswers);
+    print(widget.correctAnswers);
     _correctAnswers = widget.correctAnswers;
-    Provider.of<EndTimer>(context, listen: false).resetEndTimer();
     super.initState();
   }
 
@@ -63,6 +65,7 @@ class _RecordState extends State<Record> {
         ),
       );
     } else if (record < _correctAnswers) {
+      print('HERE: $_correctAnswers');
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Text(
@@ -138,6 +141,9 @@ class _RecordState extends State<Record> {
                 onPressed: () {
                   saveRecord();
                   // _prefs.clear();
+                  Provider.of<EndTimer>(context, listen: false).resetEndTimer();
+                  Provider.of<Answers>(context, listen: false).resetCorrect();
+                  Provider.of<Answers>(context, listen: false).resetWrong();
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     '/main-menu',
                     (route) => false,
