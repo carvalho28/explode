@@ -1,10 +1,9 @@
 import 'dart:math';
 
 import 'package:explode/constants/general.dart';
-import 'package:explode/constants/routes.dart';
+import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/utilities/verification_icon.dart';
-import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,10 +41,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   final Random operator = Random();
   late final TextEditingController _answer = TextEditingController();
 
-  // variables to store the correct answer
-  int _correctAnswers = 0;
-  int _wrongAnswers = 0;
-
   @override
   void initState() {
     super.initState();
@@ -55,21 +50,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   void dispose() {
     _answer.dispose();
     super.dispose();
-  }
-
-  // increment the number of correct answers
-  void incrementCorrect() {
-    setState(() {
-      _correctAnswers++;
-    });
-  }
-
-  // increment the number of wrong answers
-  void incrementWrong() {
-    // increment the number of wrong answers
-    setState(() {
-      _wrongAnswers++;
-    });
   }
 
   // funtion to generate a random equation based on the difficulty and operators
@@ -151,26 +131,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
     PairExpRes pairEquation = generateEquation();
     String equation = pairEquation.s;
     String result = pairEquation.x.toString();
-
-    // listen to the provider to check if the time is over
-    EndTimer timeEnder = Provider.of<EndTimer>(context);
-    print(timeEnder.endTimer);
-
-    // if the time is over, navigate to the record page
-    if (timeEnder.endTimer) {
-      Navigator.pop(context);
-      Future.delayed(Duration.zero, (() {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => Record(
-              correctAnswers: _correctAnswers,
-            ),
-          ),
-          (route) => false,
-        );
-      }));
-    }
 
     return Center(
       child: Column(
@@ -261,7 +221,8 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                       );
                     },
                   );
-                  incrementCorrect();
+                  Provider.of<Answers>(context, listen: false)
+                      .incrementCorrect();
                 } else {
                   _answer.clear();
                   showDialog(
@@ -272,7 +233,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                       );
                     },
                   );
-                  incrementWrong();
+                  Provider.of<Answers>(context, listen: false).incrementWrong();
                 }
               }
             },

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
+import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/views/difficulty.dart';
 import 'package:explode/views/game.dart';
@@ -17,6 +18,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => EndTimer()),
+        ChangeNotifierProvider(create: (_) => Answers()),
       ],
       child: MaterialApp(
         title: 'Explode',

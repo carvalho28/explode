@@ -19,7 +19,6 @@ class TimerWidget extends StatefulWidget {
 class _TimerWidgetState extends State<TimerWidget> {
   late Timer _timer;
   late int _timeRemaining;
-  late int correctAnswers;
 
   @override
   void initState() {

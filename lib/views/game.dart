@@ -3,10 +3,14 @@ import 'dart:math';
 import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
 import 'package:explode/main.dart';
+import 'package:explode/providers/answers_provider.dart';
+import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/utilities/game_engine.dart';
 import 'package:explode/utilities/timer.dart';
 import 'package:explode/utilities/verification_icon.dart';
+import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Game extends StatefulWidget {
   const Game({
@@ -42,6 +46,24 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
+    EndTimer timeEnder = Provider.of<EndTimer>(context);
+    Answers answers = Provider.of<Answers>(context);
+
+    // if the time is over, go to the results page
+    if (timeEnder.endTimer) {
+      Future.delayed(Duration.zero, () {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => Record(
+              correctAnswers: answers.correctAnswers,
+            ),
+          ),
+          (route) => false,
+        );
+      });
+    }
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());

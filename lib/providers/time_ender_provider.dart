@@ -9,4 +9,9 @@ class EndTimer with ChangeNotifier {
     _endTimer = value;
     notifyListeners();
   }
+
+  void resetEndTimer() {
+    _endTimer = false;
+    notifyListeners();
+  }
 }

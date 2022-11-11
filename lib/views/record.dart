@@ -25,7 +25,7 @@ class _RecordState extends State<Record> {
   @override
   void initState() {
     _correctAnswers = widget.correctAnswers;
-    Provider.of<EndTimer>(context, listen: false).changeEndTimer(false);
+    Provider.of<EndTimer>(context, listen: false).resetEndTimer();
     super.initState();
   }
 
