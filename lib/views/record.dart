@@ -1,7 +1,9 @@
 import 'package:explode/constants/general.dart';
+import 'package:explode/providers/time_ender_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Record extends StatefulWidget {
@@ -23,6 +25,7 @@ class _RecordState extends State<Record> {
   @override
   void initState() {
     _correctAnswers = widget.correctAnswers;
+    Provider.of<EndTimer>(context, listen: false).changeEndTimer(false);
     super.initState();
   }
 

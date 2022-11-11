@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/utilities/game_engine.dart';
 import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key, required this.startingTime});
@@ -29,8 +31,8 @@ class _TimerWidgetState extends State<TimerWidget> {
           _timeRemaining--;
         } else {
           timer.cancel();
-          // get the number of correct answers
-
+          // Change Provider value to true
+          Provider.of<EndTimer>(context, listen: false).changeEndTimer(true);
         }
       });
     });

@@ -1,9 +1,12 @@
 import 'dart:math';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/constants/routes.dart';
+import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/utilities/verification_icon.dart';
 import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PairExpRes {
   String s;
@@ -149,6 +152,26 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
     String equation = pairEquation.s;
     String result = pairEquation.x.toString();
 
+    // listen to the provider to check if the time is over
+    EndTimer timeEnder = Provider.of<EndTimer>(context);
+    print(timeEnder.endTimer);
+
+    // if the time is over, navigate to the record page
+    if (timeEnder.endTimer) {
+      Navigator.pop(context);
+      Future.delayed(Duration.zero, (() {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => Record(
+              correctAnswers: _correctAnswers,
+            ),
+          ),
+          (route) => false,
+        );
+      }));
+    }
+
     return Center(
       child: Column(
         children: [
@@ -241,7 +264,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                   incrementCorrect();
                 } else {
                   _answer.clear();
-                  incrementWrong();
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -250,6 +272,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                       );
                     },
                   );
+                  incrementWrong();
                 }
               }
             },
