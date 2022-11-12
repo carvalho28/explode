@@ -2,12 +2,12 @@ import 'package:explode/models/record.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class RecordsDatabase {
-  static final RecordsDatabase instance = RecordsDatabase._init();
+class RecordsService {
+  static final RecordsService instance = RecordsService._init();
 
   static Database? _database;
 
-  RecordsDatabase._init();
+  RecordsService._init();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -42,7 +42,7 @@ class RecordsDatabase {
     return record.copy(id: id);
   }
 
-  Future<RecordModel> readRecord(int id) async {
+  Future<RecordModel> readRecord2(int id) async {
     final db = await instance.database;
 
     final maps = await db.query(
@@ -56,6 +56,28 @@ class RecordsDatabase {
       return RecordModel.fromJson(maps.first);
     } else {
       throw Exception('ID $id not found!');
+    }
+  }
+
+  Future<RecordModel?> readRecord(
+    String operators,
+    String difficulty,
+    int time,
+  ) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      tableRecords,
+      columns: RecordFields.values,
+      where:
+          '${RecordFields.operators} = ? AND ${RecordFields.difficulty} = ? AND ${RecordFields.time} = ?',
+      whereArgs: [operators, difficulty, time],
+    );
+
+    if (maps.isNotEmpty) {
+      return RecordModel.fromJson(maps.first);
+    } else {
+      return null;
     }
   }
 
