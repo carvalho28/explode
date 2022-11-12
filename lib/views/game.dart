@@ -56,7 +56,12 @@ class _GameState extends State<Game> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => Record(correctAnswers: correctAnswers),
+            builder: (context) => Record(
+              correctAnswers: correctAnswers,
+              difficulty: _difficulty,
+              operators: _operators,
+              time: _time,
+            ),
           ),
           (route) => false,
         );

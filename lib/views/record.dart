@@ -9,9 +9,15 @@ class Record extends StatefulWidget {
   const Record({
     super.key,
     required this.correctAnswers,
+    required this.operators,
+    required this.difficulty,
+    required this.time,
   });
 
   final int correctAnswers;
+  final List<String> operators;
+  final String difficulty;
+  final int time;
 
   @override
   State<Record> createState() => _RecordState();
@@ -19,6 +25,9 @@ class Record extends StatefulWidget {
 
 class _RecordState extends State<Record> {
   late int _correctAnswers = 0;
+  late List<String> _operators = [];
+  late String _difficulty = '';
+  late int _time = 0;
   late SharedPreferences _prefs;
 
   @override
@@ -26,6 +35,9 @@ class _RecordState extends State<Record> {
     print(_correctAnswers);
     print(widget.correctAnswers);
     _correctAnswers = widget.correctAnswers;
+    _operators = widget.operators;
+    _difficulty = widget.difficulty;
+    _time = widget.time;
     super.initState();
   }
 
