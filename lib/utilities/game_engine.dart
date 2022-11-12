@@ -43,8 +43,9 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
 
   @override
   void initState() {
-    Provider.of<Answers>(context, listen: false).resetCorrect();
-    Provider.of<Answers>(context, listen: false).resetWrong();
+    print('initState game_engine.dart');
+    // Provider.of<Answers>(context, listen: false).resetCorrect();
+    // Provider.of<Answers>(context, listen: false).resetWrong();
     super.initState();
   }
 
@@ -134,6 +135,8 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
     String equation = pairEquation.s;
     String result = pairEquation.x.toString();
 
+    print('refreshing game_engine.dart');
+
     return Center(
       child: Column(
         children: [
@@ -158,10 +161,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                 signed: true,
                 decimal: false,
               ),
-              // no suggestions
               autocorrect: false,
-              // only numbers
-              // keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
               // autofocus: true,
               style: const TextStyle(
@@ -215,27 +215,34 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                   RegExp(r'^-?[0-9]+$').hasMatch(_answer.text)) {
                 if (checkAnswer(result, int.parse(_answer.text))) {
                   _answer.clear();
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const VerificationIcon(
-                        correct: true,
-                      );
-                    },
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (BuildContext context, _, __) {
+                        return const VerificationIcon(
+                          correct: true,
+                        );
+                      },
+                    ),
                   );
+                  const VerificationIcon(correct: true);
                   Provider.of<Answers>(context, listen: false)
                       .incrementCorrect();
+                  // setState(() {});
                 } else {
                   _answer.clear();
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const VerificationIcon(
-                        correct: false,
-                      );
-                    },
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (BuildContext context, _, __) {
+                        return const VerificationIcon(
+                          correct: false,
+                        );
+                      },
+                    ),
                   );
                   Provider.of<Answers>(context, listen: false).incrementWrong();
+                  // setState(() {});
                 }
               }
             },
@@ -268,11 +275,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
             ),
             onPressed: () {
               _answer.clear();
-              setState(() {
-                pairEquation = generateEquation();
-                equation = pairEquation.s;
-                result = pairEquation.x.toString();
-              });
+              setState(() {});
             },
             child: const Text(
               'Skip',
