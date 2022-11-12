@@ -114,6 +114,9 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
         result = num1 * num2;
         break;
       case '/':
+        if (num2 == 0) {
+          return calculateResult(num1, number2.nextInt(100), op);
+        }
         result = num1 ~/ num2;
         break;
     }
@@ -228,7 +231,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                   const VerificationIcon(correct: true);
                   Provider.of<Answers>(context, listen: false)
                       .incrementCorrect();
-                  // setState(() {});
                 } else {
                   _answer.clear();
                   Navigator.of(context).push(
@@ -242,7 +244,6 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                     ),
                   );
                   Provider.of<Answers>(context, listen: false).incrementWrong();
-                  // setState(() {});
                 }
               }
             },

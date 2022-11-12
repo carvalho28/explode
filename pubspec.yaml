@@ -84,6 +84,9 @@ flutter:
         - asset: assets/fonts/Roboto-Regular.ttf
         - asset: assets/fonts/Roboto-Bold.ttf
           weight: 700
+    - family: Emulogic
+      fonts:
+        - asset: assets/fonts/Emulogic.ttf
 
   #   - family: Schyler
   #     fonts:

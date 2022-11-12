@@ -2,8 +2,6 @@ import 'package:explode/constants/general.dart';
 import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -102,14 +100,27 @@ class _RecordState extends State<Record> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Game Over',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 100,
-                fontFamily: fontTitle,
+            const SizedBox(
+              height: 100,
+            ),
+            TweenAnimationBuilder(
+              tween: Tween<double>(begin: 0, end: 1),
+              duration: const Duration(seconds: 3),
+              builder: (context, double value, child) {
+                return Transform.scale(
+                  scale: value,
+                  child: child,
+                );
+              },
+              child: const Text(
+                'Game\nOver',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 60,
+                  fontFamily: fontGameOver,
+                ),
               ),
             ),
             FutureBuilder<int>(

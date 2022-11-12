@@ -13,3 +13,4 @@ const Color incorrectColor = Color(0xFFE07A5F);
 // const for font family
 const String fontTitle = 'JollyLodger';
 const String fontBody = 'Roboto';
+const String fontGameOver = 'Emulogic';

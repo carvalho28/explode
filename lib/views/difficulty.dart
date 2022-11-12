@@ -1,9 +1,6 @@
 import 'package:explode/constants/general.dart';
-import 'package:explode/constants/routes.dart';
 import 'package:explode/views/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class Difficulty extends StatefulWidget {
   const Difficulty({super.key});

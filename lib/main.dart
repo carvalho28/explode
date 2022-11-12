@@ -25,7 +25,11 @@ void main() {
         theme: ThemeData(
           backgroundColor: primaryColor,
         ),
-        home: const MainMenu(),
+        home: const Game(
+          operators: ['+', '-', 'x', '/'],
+          difficulty: '1',
+          time: '2',
+        ),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
           difficultyRoute: (context) => const Difficulty(),
