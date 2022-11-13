@@ -150,13 +150,10 @@ class _RecordState extends State<Record> {
                   const SizedBox(
                     height: 50,
                   ),
-                  // print game mode
-                  // if new record is set, display it and say how many points were scored
                   if (_record?.correctAnswers == -1 ||
                       _correctAnswers > _record!.correctAnswers)
                     Column(
                       children: const [
-                        //  trophy icon
                         Icon(
                           Icons.emoji_events,
                           color: Colors.white,
@@ -171,15 +168,6 @@ class _RecordState extends State<Record> {
                         ),
                       ],
                     ),
-                  // if (_record?.correctAnswers != -1 &&
-                  //     _correctAnswers <= _record!.correctAnswers)
-                  //   Text(
-                  //     'Your record is still: ${_record!.correctAnswers}',
-                  //     style: const TextStyle(
-                  //       color: Colors.white,
-                  //       fontSize: 30,
-                  //     ),
-                  //   ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -193,6 +181,7 @@ class _RecordState extends State<Record> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
+                              fontFamily: fontBody,
                             ),
                           ),
                           Text(
@@ -200,6 +189,7 @@ class _RecordState extends State<Record> {
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 30,
+                              fontFamily: fontBody,
                             ),
                           ),
                         ],
@@ -215,6 +205,7 @@ class _RecordState extends State<Record> {
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 30,
+                                fontFamily: fontBody,
                               ),
                             ),
                           if (_correctAnswers == 0)
@@ -224,6 +215,7 @@ class _RecordState extends State<Record> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 30,
+                                fontFamily: fontBody,
                               ),
                             ),
                           // text with correct answers
@@ -232,6 +224,7 @@ class _RecordState extends State<Record> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 10,
+                              fontFamily: fontBody,
                             ),
                           ),
                         ],
@@ -246,8 +239,6 @@ class _RecordState extends State<Record> {
                   Row(
                     // align the button to the right
                     mainAxisAlignment: MainAxisAlignment.end,
-                    // padding for the button
-
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 40),
@@ -337,6 +328,7 @@ class _RecordState extends State<Record> {
                       'Back to Main Menu',
                       style: TextStyle(
                         fontSize: 20,
+                        fontFamily: fontBody,
                       ),
                     ),
                   ),

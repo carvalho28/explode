@@ -7,6 +7,7 @@ import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/views/difficulty.dart';
 import 'package:explode/views/game.dart';
 import 'package:explode/views/game_over.dart';
+import 'package:explode/views/players_choice.dart';
 import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,11 +26,12 @@ void main() {
         theme: ThemeData(
           backgroundColor: primaryColor,
         ),
-        home: const Game(
-          operators: ['+', '-', 'x', '/'],
-          difficulty: '1',
-          time: '2',
-        ),
+        home: const PlayersChoice(),
+        // const Game(
+        //   operators: ['+', '-', 'x', '/'],
+        //   difficulty: '1',
+        //   time: '2',
+        // ),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
           difficultyRoute: (context) => const Difficulty(),
