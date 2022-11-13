@@ -1,6 +1,5 @@
 import 'package:explode/constants/general.dart';
-import 'package:explode/main.dart';
-import 'package:explode/models/record.dart';
+import 'package:explode/models/record_model.dart';
 import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/services/crud/records_service.dart';
@@ -30,6 +29,7 @@ class _RecordState extends State<Record> {
   late String _operators;
   late String _difficulty;
   late int _time;
+
   late RecordModel? _record;
 
   Future refreshRecord() async {
@@ -38,10 +38,25 @@ class _RecordState extends State<Record> {
       _difficulty,
       _time,
     );
+    if (_record == null) {
+      _record = const RecordModel(
+        correctAnswers: -1,
+        operators: '',
+        difficulty: '-1',
+        time: -1,
+      );
+    } else {
+      _record = _record!.copy(
+        correctAnswers: _correctAnswers,
+        operators: _operators,
+        difficulty: _difficulty,
+        time: _time,
+      );
+    }
   }
 
   Future saveRecord() async {
-    if (_record == null) {
+    if (_record?.correctAnswers == -1) {
       await RecordsService.instance.create(
         RecordModel(
             correctAnswers: _correctAnswers,
@@ -74,13 +89,15 @@ class _RecordState extends State<Record> {
     _operators = widget.operators.join();
     _difficulty = widget.difficulty;
     _time = widget.time;
-    super.initState();
     refreshRecord();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('Records: ');
     printRecords();
+    // print(_record!.toJson())
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -120,35 +137,56 @@ class _RecordState extends State<Record> {
                   const SizedBox(
                     height: 50,
                   ),
+                  // print game mode
                   // if new record is set, display it and say how many points were scored
-                  if (_record == null ||
+                  if (_record?.correctAnswers == -1 ||
                       _correctAnswers > _record!.correctAnswers)
-                    const Text(
-                      'New record!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50,
-                      ),
+                    Column(
+                      children: const [
+                        //  trophy icon
+                        Icon(
+                          Icons.emoji_events,
+                          color: Colors.white,
+                          size: 80,
+                        ),
+                        Text(
+                          'New Record!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 50,
+                          ),
+                        ),
+                      ],
                     ),
-                  // if new record is not set, display the old record and say how many points were scored
-                  if (_record != null &&
-                      _correctAnswers <= _record!.correctAnswers)
-                    Text(
-                      'Record: ${_record!.correctAnswers}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                      ),
-                    ),
+                  // if (_record?.correctAnswers != -1 &&
+                  //     _correctAnswers <= _record!.correctAnswers)
+                  //   Text(
+                  //     'Your record is still: ${_record!.correctAnswers}',
+                  //     style: const TextStyle(
+                  //       color: Colors.white,
+                  //       fontSize: 30,
+                  //     ),
+                  //   ),
                   const SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
-                  Text(
-                    'Score: $_correctAnswers!',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                    ),
+                  Column(
+                    children: [
+                      const Text(
+                        'Score:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                        ),
+                      ),
+                      Text(
+                        '$_correctAnswers',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 50,

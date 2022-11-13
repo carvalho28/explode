@@ -2,8 +2,11 @@ final String tableRecords = 'records';
 
 class RecordFields {
   static final List<String> values = [
-    /// Add all fields
-    id, correctAnswers, operators, difficulty, time
+    id,
+    correctAnswers,
+    operators,
+    difficulty,
+    time
   ];
 
   static final String id = '_id';

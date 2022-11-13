@@ -1,4 +1,4 @@
-import 'package:explode/models/record.dart';
+import 'package:explode/models/record_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -25,7 +25,7 @@ class RecordsService {
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
-    CREATE TABLE $tableRecords (
+    CREATE TABLE IF NOT EXISTS $tableRecords (
       ${RecordFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${RecordFields.correctAnswers} INTEGER NOT NULL,
       ${RecordFields.operators} TEXT NOT NULL,
