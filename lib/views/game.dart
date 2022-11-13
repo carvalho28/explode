@@ -83,6 +83,9 @@ class _GameState extends State<Game> {
               IconButton(
                 icon: const Icon(Icons.exit_to_app_outlined),
                 onPressed: () {
+                  Provider.of<EndTimer>(context, listen: false).resetEndTimer();
+                  Provider.of<Answers>(context, listen: false).resetCorrect();
+                  Provider.of<Answers>(context, listen: false).resetWrong();
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     mainMenuRoute,
                     (route) => false,

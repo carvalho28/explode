@@ -133,7 +133,7 @@ class _DifficultyState extends State<Difficulty> {
             ),
             // difficulty choice using stars
             Wrap(
-              // color
+              // force one to be selected
               children: difficulties
                   .map(
                     (String difficulty) => Container(
@@ -154,15 +154,11 @@ class _DifficultyState extends State<Difficulty> {
                           elevation: 15,
                         ),
                         onPressed: () {
-                          // if the difficulty is already selected, remove it
-                          if (selectedDifficulty == difficulty) {
-                            selectedDifficulty = '';
-                          } else {
-                            // if the difficulty is not selected, add it
-                            selectedDifficulty = difficulty;
-                          }
+                          // set the selected difficulty
+                          selectedDifficulty = difficulty;
                           // update the state
                           setState(() {});
+                          print(selectedDifficulty);
                         },
                         child: Text(
                           difficulty,
@@ -196,7 +192,7 @@ class _DifficultyState extends State<Difficulty> {
             ),
             // time choice
             Wrap(
-              // color
+              // force one to be selected
               children: times
                   .map(
                     (String time) => Container(
@@ -217,13 +213,8 @@ class _DifficultyState extends State<Difficulty> {
                           elevation: 15,
                         ),
                         onPressed: () {
-                          // if the time is already selected, remove it
-                          if (selectedTime == time) {
-                            selectedTime = '';
-                          } else {
-                            // if the time is not selected, add it
-                            selectedTime = time;
-                          }
+                          // set the selected time
+                          selectedTime = time;
                           // update the state
                           setState(() {});
                           print(selectedTime);
