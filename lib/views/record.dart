@@ -6,6 +6,7 @@ import 'package:explode/services/crud/records_service.dart';
 import 'package:explode/views/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Record extends StatefulWidget {
   const Record({
@@ -237,8 +238,36 @@ class _RecordState extends State<Record> {
                       ),
                     ],
                   ),
+                  // share button
                   const SizedBox(
-                    height: 80,
+                    height: 20,
+                  ),
+                  //  button with icon to share on the right
+                  Row(
+                    // align the button to the right
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    // padding for the button
+
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 40),
+                        child: IconButton(
+                          onPressed: () async {
+                            await Share.share(
+                              'I scored $_correctAnswers points in Explode! Can you beat me?',
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.share,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 40,
                   ),
                   // button with restart icon
                   ElevatedButton(
