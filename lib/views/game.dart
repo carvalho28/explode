@@ -52,12 +52,14 @@ class _GameState extends State<Game> {
 
     if (timeEnder.endTimer) {
       int correctAnswers = answers.correctAnswers;
+      int wrongAnswers = answers.wrongAnswers;
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => Record(
               correctAnswers: correctAnswers,
+              wrongAnswers: wrongAnswers,
               difficulty: _difficulty,
               operators: _operators,
               time: _time,

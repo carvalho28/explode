@@ -3,6 +3,7 @@ import 'package:explode/models/record_model.dart';
 import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/services/crud/records_service.dart';
+import 'package:explode/views/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,12 +11,14 @@ class Record extends StatefulWidget {
   const Record({
     super.key,
     required this.correctAnswers,
+    required this.wrongAnswers,
     required this.operators,
     required this.difficulty,
     required this.time,
   });
 
   final int correctAnswers;
+  final int wrongAnswers;
   final List<String> operators;
   final String difficulty;
   final int time;
@@ -26,9 +29,14 @@ class Record extends StatefulWidget {
 
 class _RecordState extends State<Record> {
   late int _correctAnswers = 0;
+  late int _wrongAnswers = 0;
   late String _operators;
   late String _difficulty;
   late int _time;
+
+  // List<String> restartOperators = [];
+  // int restartDifficulty = 0;
+  // int restartTime = 0;
 
   late RecordModel? _record;
 
@@ -86,9 +94,13 @@ class _RecordState extends State<Record> {
     print(_correctAnswers);
     print(widget.correctAnswers);
     _correctAnswers = widget.correctAnswers;
+    _wrongAnswers = widget.wrongAnswers;
     _operators = widget.operators.join();
     _difficulty = widget.difficulty;
     _time = widget.time;
+    // restartOperators = widget.operators;
+    // restartDifficulty = int.parse(widget.difficulty);
+    // restartTime = widget.time;
     refreshRecord();
     super.initState();
   }
@@ -170,26 +182,101 @@ class _RecordState extends State<Record> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        'Score:',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                        ),
+                      Column(
+                        children: [
+                          const Text(
+                            'Score:',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                            ),
+                          ),
+                          Text(
+                            '$_correctAnswers',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        '$_correctAnswers',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                        ),
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      Column(
+                        children: [
+                          if (_correctAnswers != 0)
+                            Text(
+                              '${(_correctAnswers / (_correctAnswers + _wrongAnswers) * 100).round()}%',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                              ),
+                            ),
+                          if (_correctAnswers == 0)
+                            // 0 bigger than the %
+                            const Text(
+                              '0%',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                              ),
+                            ),
+                          // text with correct answers
+                          const Text(
+                            'Correct answers',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 80,
+                  ),
+                  // button with restart icon
+                  ElevatedButton(
+                    onPressed: () {
+                      saveRecord();
+                      Provider.of<EndTimer>(context, listen: false)
+                          .resetEndTimer();
+                      Provider.of<Answers>(context, listen: false)
+                          .resetCorrect();
+                      Provider.of<Answers>(context, listen: false).resetWrong();
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/main-menu',
+                        (route) => false,
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Game(
+                            operators: widget.operators,
+                            difficulty: widget.difficulty,
+                            time: widget.time.toString(),
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: secondaryColor,
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                    ),
+                    child: const Icon(
+                      Icons.restart_alt_rounded,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(

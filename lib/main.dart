@@ -41,6 +41,7 @@ void main() {
           gameOverRoute: (context) => const GameOver(),
           recordRoute: (context) => const Record(
                 correctAnswers: 10,
+                wrongAnswers: 2,
                 difficulty: '1',
                 operators: ['+', '-'],
                 time: 2,
