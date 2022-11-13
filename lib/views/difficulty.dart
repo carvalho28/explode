@@ -163,7 +163,6 @@ class _DifficultyState extends State<Difficulty> {
                           }
                           // update the state
                           setState(() {});
-                          print(selectedDifficulty);
                         },
                         child: Text(
                           difficulty,
@@ -303,6 +302,7 @@ class _DifficultyState extends State<Difficulty> {
                     selectedDifficulty != '' &&
                     selectedTime != '') {
                   // navigate to the game page without button to go back
+                  selectedOperators.sort();
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(

@@ -150,23 +150,6 @@ class _RecordState extends State<Record> {
                       fontSize: 30,
                     ),
                   ),
-                  // Text(
-                  //   'Your score: $_correctAnswers',
-                  //   style: const TextStyle(
-                  //     color: Colors.white,
-                  //     fontSize: 30,
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Text(
-                  //   'Record: ${_record?.correctAnswers ?? 0}',
-                  //   style: const TextStyle(
-                  //     color: Colors.white,
-                  //     fontSize: 30,
-                  //   ),
-                  // ),
                   const SizedBox(
                     height: 50,
                   ),

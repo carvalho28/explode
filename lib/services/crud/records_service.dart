@@ -109,6 +109,12 @@ class RecordsService {
     );
   }
 
+  // delete table
+  Future deleteTable() async {
+    final db = await instance.database;
+    await db.execute('DROP TABLE $tableRecords');
+  }
+
   Future close() async {
     final db = await instance.database;
     db.close();
