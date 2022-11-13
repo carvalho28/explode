@@ -68,7 +68,6 @@ class _DifficultyState extends State<Difficulty> {
             const SizedBox(
               height: 20,
             ),
-            // list of all operators
             Wrap(
               // color
               children: operators
@@ -91,14 +90,20 @@ class _DifficultyState extends State<Difficulty> {
                           elevation: 15,
                         ),
                         onPressed: () {
-                          // if the operator is already selected, remove it
-                          if (selectedOperators.contains(operator)) {
-                            selectedOperators.remove(operator);
+                          // if the operator is already selected, remove it from the list unless there is only one operator selected
+                          if (selectedOperators.contains(operator) &&
+                              selectedOperators.length > 1) {
+                            setState(() {
+                              selectedOperators.remove(operator);
+                            });
                           } else {
-                            // if the operator is not selected, add it
-                            selectedOperators.add(operator);
+                            // if the operator is not selected, add it to the list if not there
+                            if (!selectedOperators.contains(operator)) {
+                              setState(() {
+                                selectedOperators.add(operator);
+                              });
+                            }
                           }
-                          // update the state
                           setState(() {});
                           print(selectedOperators);
                         },
