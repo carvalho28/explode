@@ -56,6 +56,17 @@ class PlayersService {
     return result.map((json) => PlayerModel.fromJson(json)).toList();
   }
 
+  // read all elements in the table
+  Future<List<PlayerModel>> readAllPlayers() async {
+    final db = await instance.database;
+
+    final orderBy = '${PlayerFields.name} ASC';
+
+    final result = await db.query(tablePlayers, orderBy: orderBy);
+
+    return result.map((json) => PlayerModel.fromJson(json)).toList();
+  }
+
   Future<int> update(PlayerModel player) async {
     final db = await instance.database;
 
@@ -68,6 +79,13 @@ class PlayersService {
 
     return await db
         .delete(tablePlayers, where: '${PlayerFields.id} = ?', whereArgs: [id]);
+  }
+
+  // delete table
+  Future deleteTable() async {
+    final db = await instance.database;
+
+    return await db.execute('DROP TABLE IF EXISTS $tablePlayers');
   }
 
   Future close() async {

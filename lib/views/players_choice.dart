@@ -1,4 +1,8 @@
 import 'package:explode/constants/general.dart';
+import 'package:explode/models/group_model.dart';
+import 'package:explode/models/player_model.dart';
+import 'package:explode/services/crud/group_service.dart';
+import 'package:explode/services/crud/players_service.dart';
 import 'package:flutter/material.dart';
 
 class PlayersChoice extends StatefulWidget {
@@ -38,7 +42,7 @@ class _PlayersChoiceState extends State<PlayersChoice> {
 
   String? _selectedPlayer = '2';
 
-  Map<String, TextEditingController> _controllers = {
+  final Map<String, TextEditingController> _controllers = {
     '1': TextEditingController(),
     '2': TextEditingController(),
     '3': TextEditingController(),
@@ -46,6 +50,60 @@ class _PlayersChoiceState extends State<PlayersChoice> {
     '5': TextEditingController(),
     '6': TextEditingController(),
   };
+
+  // function to create group of players
+  Future saveGroup(List<String> playersName, String groupName) async {
+    // if all players name are not empty
+    if (playersName.isNotEmpty) {
+      print('Here');
+      // create group
+      GroupModel groupModel =
+          await GroupService.instance.createGroup(GroupModel(
+        name: groupName,
+      ));
+      print("Group created with id: ${groupModel.id}");
+      int groupId = groupModel.id!;
+      if (groupId != -1) {
+        for (String playerName in playersName) {
+          await PlayersService.instance.create(
+            PlayerModel(name: playerName, groupId: groupId),
+          );
+        }
+      } else {
+        print('Group $groupId not found');
+      }
+    } else {
+      print('empty');
+      // if one of the players name is empty, show a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill all the players name'),
+        ),
+      );
+    }
+  }
+
+  // read all players with a group id
+  Future readTable() async {
+    try {
+      final result1 = await PlayersService.instance.readAllPlayers();
+      final result2 = await GroupService.instance.readAllGroups();
+      print("Table Players: $result1");
+      print("Table Groups: $result2");
+    } catch (e) {
+      print('No tables found');
+    }
+  }
+
+  // delete table players
+  Future deleteTables() async {
+    try {
+      await PlayersService.instance.deleteTable();
+      await GroupService.instance.deleteTable();
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,6 +200,18 @@ class _PlayersChoiceState extends State<PlayersChoice> {
             // button to start the game
             ElevatedButton(
               onPressed: () {
+                List<String> playersName = [];
+                for (int i = 0; i < int.parse(_selectedPlayer!); i++) {
+                  if (_controllers['${i + 1}']!.text.isNotEmpty) {
+                    playersName.add(_controllers['${i + 1}']!.text);
+                  }
+                }
+                print(playersName);
+                // saveGroup(playersName, 'Group 1');
+                // deleteTables();
+                readTable();
+                // saveGroup(playersName, 'group1');
+                // readTable();
                 // navigate to the game screen
                 // Navigator.pushNamed(context, '/game');
               },

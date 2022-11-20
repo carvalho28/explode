@@ -32,7 +32,7 @@ class GroupService {
     ''');
   }
 
-  Future<GroupModel> create(GroupModel group) async {
+  Future<GroupModel> createGroup(GroupModel group) async {
     final db = await instance.database;
 
     final id = await db.insert(tableGroups, group.toJson());
@@ -53,6 +53,25 @@ class GroupService {
       return GroupModel.fromJson(maps.first);
     } else {
       throw Exception('ID $id not found');
+    }
+  }
+
+  // get group id by name
+  Future<int> getGroupId(String name) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      tableGroups,
+      columns: GroupFields.values,
+      where: '${GroupFields.name} = ?',
+      whereArgs: [name],
+    );
+
+    if (maps.isNotEmpty) {
+      return maps.first[GroupFields.id] as int;
+    } else {
+      // throw Exception('ID with: $name, not found');
+      return -1;
     }
   }
 
@@ -84,6 +103,12 @@ class GroupService {
       where: '${GroupFields.id} = ?',
       whereArgs: [id],
     );
+  }
+
+  Future deleteTable() async {
+    final db = await instance.database;
+
+    return await db.execute('DROP TABLE IF EXISTS $tableGroups');
   }
 
   Future close() async {
