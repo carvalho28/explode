@@ -76,11 +76,14 @@ class _ScoresMultiplayerState extends State<ScoresMultiplayer> {
       body: Center(
         child: Column(
           children: [
+            const SizedBox(
+              height: 100,
+            ),
             const Text(
-              'Scores',
+              'Ranking',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 80,
+                fontSize: 60,
                 fontFamily: fontBody,
               ),
             ),
@@ -102,6 +105,13 @@ class _ScoresMultiplayerState extends State<ScoresMultiplayer> {
                             _selectedGroup = value;
                           });
                         },
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontFamily: fontBody,
+                        ),
+                        dropdownColor: primaryColor,
+                        iconEnabledColor: Colors.white,
                       ),
                       const SizedBox(
                         height: 50,
@@ -113,18 +123,27 @@ class _ScoresMultiplayerState extends State<ScoresMultiplayer> {
                             if (snapshot.hasData &&
                                 snapshot.data!.keys.first == -1) {
                               return const Text(
-                                'No scores yet',
+                                'No rankings',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontFamily: fontBody,
                                 ),
                               );
                             } else if (snapshot.hasData) {
                               return Column(
                                 children: [
+                                  // icon for highest score
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.white,
+                                    size: 50,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
                                   Text(
-                                    'Highest score: ${snapshot.data!.keys.first}',
+                                    'Player: ${snapshot.data!.values.first}',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 30,
@@ -135,12 +154,15 @@ class _ScoresMultiplayerState extends State<ScoresMultiplayer> {
                                     height: 20,
                                   ),
                                   Text(
-                                    'Highest scorer: ${snapshot.data!.values.first}',
+                                    'Score: ${snapshot.data!.keys.first}',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 30,
                                       fontFamily: fontBody,
                                     ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
                                   ),
                                 ],
                               );
