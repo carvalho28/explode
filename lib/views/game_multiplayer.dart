@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:explode/constants/general.dart';
+import 'package:explode/constants/routes.dart';
 import 'package:explode/utilities/game_engine.dart';
 import 'package:explode/utilities/levels.dart';
 import 'package:explode/utilities/popup.dart';
@@ -28,10 +29,13 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
   late int _numberOfPlayers;
   late int _level = 1;
   late int _playerNow = 0;
-  late List<int> _scores;
+  // late List<int> _scores;
   late int _timeLevel;
 
   bool _startClock = false;
+
+  // make a map, with the player name as key and the score as value
+  final Map<String, int> _scoreMap = {};
 
   // widget of Expression
   // late Widget _expression;
@@ -54,19 +58,16 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
     _groupId = widget.groupId;
     _players = widget.playerNames;
     _numberOfPlayers = _players.length;
-    _scores = List<int>.filled(_numberOfPlayers, 0);
+    // _scores = List<int>.filled(_numberOfPlayers, 0);
     _timeLevel = getTimeFromLevel(_level);
-    // _expression = Levels(
-    //   level: _level,
-    //   correct: () {},
-    // );
+    _scoreMap.addAll({widget.playerNames[0]: 0, widget.playerNames[1]: 0});
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await showDialog(
         context: context,
         builder: (context) => PopupPlayer(
-          playerName: _players[_playerNow],
+          playerName: _scoreMap.keys.elementAt(_playerNow),
           playerTime: _timeLevel,
           level: _level,
         ),
@@ -84,9 +85,11 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
     // print(_numberOfPlayers);
     // print(_level);
     // print(_playerNow);
-    print("scores: $_scores");
+    print("scores: $_scoreMap");
     print("Player now: $_playerNow");
     print("Level: $_level");
+
+    print("scoreMap: $_scoreMap");
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -108,14 +111,34 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
                       // if no players left, go to next level
                       if (_playerNow == _numberOfPlayers - 1) {
                         print('next level');
+                        // check if there is a minimum in the scores
+                        int scoreMin = _scoreMap.values.reduce(min);
+                        // if all elements are equal, then there is no minimum
+                        if (_scoreMap.values
+                            .every((element) => element == scoreMin)) {
+                          print('all equal');
+                        } else {
+                          // remove all players with the minimum score
+                          _scoreMap
+                              .removeWhere((key, value) => value == scoreMin);
+                          // if there is only one player left, then he wins
+                          if (_scoreMap.length == 1) {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                              mainMenuRoute,
+                              (route) => false,
+                            );
+                          }
+                          return;
+                        }
                         setState(() {
                           _playerNow = 0;
                           _level = _level + 1;
+                          _scoreMap.updateAll((key, value) => 0);
                           _startClock = false;
                         });
                       } else {
                         setState(() {
-                          _playerNow = (_playerNow + 1) % _numberOfPlayers;
+                          _playerNow = _playerNow + 1;
                           _startClock = false;
                         });
                       }
@@ -123,7 +146,7 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
                         await showDialog(
                           context: context,
                           builder: (context) => PopupPlayer(
-                            playerName: _players[_playerNow],
+                            playerName: _scoreMap.keys.elementAt(_playerNow),
                             playerTime: _timeLevel,
                             level: _level,
                           ),
@@ -140,7 +163,8 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
                     level: _level,
                     correct: () {
                       setState(() {
-                        _scores[_playerNow] = _scores[_playerNow] + 1;
+                        _scoreMap.update(_scoreMap.keys.elementAt(_playerNow),
+                            (value) => value + 1);
                       });
                     },
                   ),
