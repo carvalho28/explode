@@ -42,6 +42,11 @@ class _PlayersChoiceState extends State<PlayersChoice> {
 
   String? _selectedPlayer = '2';
 
+  // name of group
+  final TextEditingController _groupNameController = TextEditingController();
+
+  String _groupName = '';
+
   final Map<String, TextEditingController> _controllers = {
     '1': TextEditingController(),
     '2': TextEditingController(),
@@ -54,7 +59,7 @@ class _PlayersChoiceState extends State<PlayersChoice> {
   // function to create group of players
   Future saveGroup(List<String> playersName, String groupName) async {
     // if all players name are not empty
-    if (playersName.isNotEmpty) {
+    if (playersName.isNotEmpty && groupName.isNotEmpty) {
       print('Here');
       // create group
       GroupModel groupModel =
@@ -75,11 +80,19 @@ class _PlayersChoiceState extends State<PlayersChoice> {
     } else {
       print('empty');
       // if one of the players name is empty, show a snackbar
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please fill all the players name'),
-        ),
-      );
+      if (groupName.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please enter a group name'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please enter all players name'),
+          ),
+        );
+      }
     }
   }
 
@@ -109,7 +122,6 @@ class _PlayersChoiceState extends State<PlayersChoice> {
   Widget build(BuildContext context) {
     // let the user choose the number of players and prompt them to enter their names
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -120,7 +132,7 @@ class _PlayersChoiceState extends State<PlayersChoice> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Players',
+              'Create a Group',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40,
@@ -130,7 +142,52 @@ class _PlayersChoiceState extends State<PlayersChoice> {
             const SizedBox(
               height: 50,
             ),
-            // dropdown must select one of the options, matching color scheme
+            const Text(
+              'Group name:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: fontBody,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child: TextField(
+                controller: _groupNameController,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: fontBody,
+                ),
+                decoration: const InputDecoration(
+                  hintText: 'Team name',
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: fontBody,
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Text(
+              'Number of players:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: fontBody,
+              ),
+            ),
             DropdownButton(
               value: _selectedPlayer,
               items: dropdownItems,
@@ -150,7 +207,7 @@ class _PlayersChoiceState extends State<PlayersChoice> {
             ),
             // prompt user to enter their names
             const SizedBox(
-              height: 50,
+              height: 10,
             ),
             const Text(
               'Enter your names:',
@@ -161,12 +218,12 @@ class _PlayersChoiceState extends State<PlayersChoice> {
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 10,
             ),
             // create a TextController for each player
             for (int i = 0; i < int.parse(_selectedPlayer!); i++)
               SizedBox(
-                width: 200,
+                width: MediaQuery.of(context).size.width * 0.5,
                 child: TextField(
                   controller: _controllers['${i + 1}'],
                   style: const TextStyle(
@@ -206,12 +263,8 @@ class _PlayersChoiceState extends State<PlayersChoice> {
                     playersName.add(_controllers['${i + 1}']!.text);
                   }
                 }
-                print(playersName);
-                // saveGroup(playersName, 'Group 1');
-                // deleteTables();
-                readTable();
-                // saveGroup(playersName, 'group1');
-                // readTable();
+                String groupName = _groupNameController.text;
+                saveGroup(playersName, groupName);
                 // navigate to the game screen
                 // Navigator.pushNamed(context, '/game');
               },
@@ -233,6 +286,9 @@ class _PlayersChoiceState extends State<PlayersChoice> {
                   fontFamily: fontBody,
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 50,
             ),
           ],
         ),

@@ -1,15 +1,8 @@
 import 'package:explode/constants/general.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class GroupChoice extends StatefulWidget {
-  const GroupChoice({
-    super.key,
-    required this.playersNames,
-  });
-
-  final List<String> playersNames;
+  const GroupChoice({super.key});
 
   @override
   State<GroupChoice> createState() => _GroupChoiceState();
