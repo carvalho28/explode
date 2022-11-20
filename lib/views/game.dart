@@ -110,6 +110,7 @@ class _GameState extends State<Game> {
                 child: ExpressionGenerator(
                   operators: _operators,
                   difficulty: _difficulty,
+                  skipEnabled: true,
                 ),
               ),
             ],

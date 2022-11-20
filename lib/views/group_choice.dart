@@ -58,24 +58,6 @@ class _GroupChoiceState extends State<GroupChoice> {
     return menuItems;
   }
 
-  // // get group id from the group name
-  // Future<int> getGroupId(String groupName) async {
-  //   int groupId = -1;
-  //   groupId = await GroupService.instance.getGroupId(groupName);
-  //   return groupId;
-  // }
-
-  // // get playersName from group using group id
-  // Future<List<String>> getPlayersName(int groupId) async {
-  //   if (groupId == -1) {
-  //     return [];
-  //   } else {
-  //     List<String> playersName = [];
-  //     playersName = await PlayersService.instance.readPlayersName(groupId);
-  //     return playersName;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,7 +178,7 @@ class _GroupChoiceState extends State<GroupChoice> {
                                           // start game button
                                           ElevatedButton(
                                             onPressed: () {
-                                              // go to game
+                                              // go to game multiplayer
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: secondaryColor,

@@ -20,10 +20,12 @@ class ExpressionGenerator extends StatefulWidget {
     super.key,
     required this.operators,
     required this.difficulty,
+    required this.skipEnabled,
   });
 
   final List<String> operators;
   final String difficulty;
+  final bool skipEnabled;
 
   @override
   State<ExpressionGenerator> createState() => _ExpressionGeneratorState();
@@ -33,6 +35,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
   // variables from the Game class
   late List<String> operators = widget.operators;
   late String difficulty = widget.difficulty;
+  late bool skipEnabled = widget.skipEnabled;
 
   // generate random numbers
   final Random number1 = Random();
@@ -259,34 +262,37 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
           const SizedBox(
             height: 10,
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: tertiaryColor,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
+          // if skipEnabled is true, show the skip button else show an empty container
+          if (skipEnabled)
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: tertiaryColor,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                // button padding
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 10,
+                ),
+                // add shadow to the button
+                elevation: 15,
               ),
-              // button padding
-              padding: const EdgeInsets.symmetric(
-                horizontal: 40,
-                vertical: 10,
+              onPressed: () {
+                _answer.clear();
+                setState(() {});
+              },
+              child: const Text(
+                'Skip',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontFamily: fontBody,
+                ),
               ),
-              // add shadow to the button
-              elevation: 15,
             ),
-            onPressed: () {
-              _answer.clear();
-              setState(() {});
-            },
-            child: const Text(
-              'Skip',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontFamily: fontBody,
-              ),
-            ),
-          ),
+          if (!skipEnabled) const SizedBox.shrink(),
         ],
       ),
     );

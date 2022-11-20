@@ -28,7 +28,10 @@ void main() {
         theme: ThemeData(
           backgroundColor: primaryColor,
         ),
-        home: const GameMultiplayer(),
+        home: const GameMultiplayer(
+          groupId: 1,
+          playerNames: ['Player 1', 'Player 2'],
+        ),
         // const Game(
         //   operators: ['+', '-', 'x', '/'],
         //   difficulty: '1',
