@@ -35,7 +35,9 @@ void main() {
         // ),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
-          difficultyRoute: (context) => const Difficulty(),
+          difficultyRoute: (context) => const Difficulty(
+                groupId: -2,
+              ),
           gameRoute: (context) => const Game(
                 operators: ['+', '-'],
                 difficulty: '1',

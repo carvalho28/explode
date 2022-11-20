@@ -2,6 +2,7 @@ import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
 import 'package:explode/services/crud/group_service.dart';
 import 'package:explode/services/crud/players_service.dart';
+import 'package:explode/views/difficulty.dart';
 import 'package:flutter/material.dart';
 
 class GroupChoice extends StatefulWidget {
@@ -189,40 +190,68 @@ class _GroupChoiceState extends State<GroupChoice> {
                                               );
                                             },
                                           ),
+                                          const SizedBox(
+                                            height: 80,
+                                          ),
+                                          // start game button
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        Difficulty(
+                                                          groupId:
+                                                              _selectedGroupId,
+                                                        )),
+                                              );
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: secondaryColor,
+                                              foregroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 50,
+                                                vertical: 20,
+                                              ),
+                                              // add shadow to the button
+                                              elevation: 15,
+                                            ),
+                                            child: const Text('Start Game',
+                                                style: TextStyle(
+                                                  fontSize: 30,
+                                                  fontFamily: fontBody,
+                                                )),
+                                          ),
                                         ],
                                       );
                                     } else {
-                                      return const Text(
-                                        'Loading...',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontFamily: fontBody,
-                                        ),
+                                      return const CircularProgressIndicator(
+                                        color: Colors.white,
                                       );
                                     }
                                   },
                                 );
                               } else {
-                                return const Text(
-                                  'Loading...',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontFamily: fontBody,
-                                  ),
+                                return const CircularProgressIndicator(
+                                  color: Colors.white,
                                 );
                               }
                             },
                           ),
                         const SizedBox(
-                          height: 10,
+                          height: 50,
                         ),
                         // button for new group
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, playersChoiceRoute);
+                              Navigator.of(context).pushNamed(groupChoiceRoute);
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: tertiaryColor,
@@ -247,33 +276,6 @@ class _GroupChoiceState extends State<GroupChoice> {
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 80,
-                        ),
-                        // start game button
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(difficultyRoute);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: secondaryColor,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 50,
-                              vertical: 20,
-                            ),
-                            // add shadow to the button
-                            elevation: 15,
-                          ),
-                          child: const Text('Start Game',
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontFamily: fontBody,
-                              )),
                         ),
                       ],
                     );
