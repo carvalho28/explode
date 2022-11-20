@@ -7,6 +7,7 @@ import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/views/difficulty.dart';
 import 'package:explode/views/game.dart';
 import 'package:explode/views/game_over.dart';
+import 'package:explode/views/group_choice.dart';
 import 'package:explode/views/players_choice.dart';
 import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,9 @@ void main() {
         theme: ThemeData(
           backgroundColor: primaryColor,
         ),
-        home: const PlayersChoice(),
+        home: const GroupChoice(
+          playersNames: ['Player 1', 'Player 2', 'Player 3', 'Player 4'],
+        ),
         // const Game(
         //   operators: ['+', '-', 'x', '/'],
         //   difficulty: '1',
@@ -63,7 +66,6 @@ class MainMenu extends StatelessWidget {
       backgroundColor: primaryColor,
       body: Center(
         child: Column(
-          // title displayed on the main menu screen with animation of exploding
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(

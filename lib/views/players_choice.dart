@@ -9,7 +9,7 @@ class PlayersChoice extends StatefulWidget {
 }
 
 class _PlayersChoiceState extends State<PlayersChoice> {
-  final List<String> _players = ['2', '3', '4', '5', '6', '7', '8'];
+  final List<String> _players = ['2', '3', '4', '5', '6'];
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(
@@ -32,14 +32,6 @@ class _PlayersChoiceState extends State<PlayersChoice> {
         value: _players[4],
         child: Text(_players[4]),
       ),
-      DropdownMenuItem(
-        value: _players[5],
-        child: Text(_players[5]),
-      ),
-      DropdownMenuItem(
-        value: _players[6],
-        child: Text(_players[6]),
-      ),
     ];
     return menuItems;
   }
@@ -53,14 +45,13 @@ class _PlayersChoiceState extends State<PlayersChoice> {
     '4': TextEditingController(),
     '5': TextEditingController(),
     '6': TextEditingController(),
-    '7': TextEditingController(),
-    '8': TextEditingController(),
   };
 
   @override
   Widget build(BuildContext context) {
     // let the user choose the number of players and prompt them to enter their names
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -69,11 +60,9 @@ class _PlayersChoiceState extends State<PlayersChoice> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // prompt user to choose the number of players between 2 and 8
-          // prompt user to enter their names
           children: [
             const Text(
-              'Number of Players',
+              'Players',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40,
@@ -163,11 +152,11 @@ class _PlayersChoiceState extends State<PlayersChoice> {
                   vertical: 20,
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
               ),
               child: const Text(
-                'Start Game',
+                'Create Group',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
