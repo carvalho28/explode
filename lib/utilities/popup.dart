@@ -8,10 +8,12 @@ class PopupPlayer extends StatefulWidget {
     super.key,
     required this.playerName,
     required this.playerTime,
+    required this.level,
   });
 
   final String playerName;
   final int playerTime;
+  final int level;
 
   @override
   State<PopupPlayer> createState() => _PopupPlayerState();
@@ -20,11 +22,13 @@ class PopupPlayer extends StatefulWidget {
 class _PopupPlayerState extends State<PopupPlayer> {
   late String _playerName;
   late int _playerTime;
+  late int _level;
 
   @override
   void initState() {
     _playerName = widget.playerName;
     _playerTime = widget.playerTime;
+    _level = widget.level;
     super.initState();
   }
 
@@ -39,7 +43,7 @@ class _PopupPlayerState extends State<PopupPlayer> {
         borderRadius: BorderRadius.circular(20),
       ),
       content: SizedBox(
-        height: 100,
+        height: 150,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -47,6 +51,14 @@ class _PopupPlayerState extends State<PopupPlayer> {
               _playerName,
               style: const TextStyle(
                 fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Level: $_level',
+              style: const TextStyle(
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),
