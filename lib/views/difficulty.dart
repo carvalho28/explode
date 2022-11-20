@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 class Difficulty extends StatefulWidget {
   const Difficulty({
     super.key,
-    required this.groupId,
   });
-
-  final int groupId;
 
   @override
   State<Difficulty> createState() => _DifficultyState();
@@ -28,12 +25,9 @@ class _DifficultyState extends State<Difficulty> {
   String selectedDifficulty = '';
   // selected time
   String selectedTime = '';
-  // group id
-  int groupId = -2;
 
   @override
   void initState() {
-    groupId = widget.groupId;
     selectedOperators.add(operators[0]);
     selectedOperators.add(operators[1]);
     selectedDifficulty = difficulties[0];
@@ -51,7 +45,6 @@ class _DifficultyState extends State<Difficulty> {
 
   @override
   Widget build(BuildContext context) {
-    print('groupId: $groupId');
     // scaffold for user to choose the difficulty and the operators
     return Scaffold(
       appBar: AppBar(

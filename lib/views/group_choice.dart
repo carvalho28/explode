@@ -196,16 +196,7 @@ class _GroupChoiceState extends State<GroupChoice> {
                                           // start game button
                                           ElevatedButton(
                                             onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        Difficulty(
-                                                          groupId:
-                                                              _selectedGroupId,
-                                                        )),
-                                              );
+                                              // go to game
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: secondaryColor,
@@ -251,7 +242,8 @@ class _GroupChoiceState extends State<GroupChoice> {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pushNamed(groupChoiceRoute);
+                              Navigator.of(context)
+                                  .pushNamed(playersChoiceRoute);
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: tertiaryColor,

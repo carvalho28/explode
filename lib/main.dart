@@ -6,6 +6,7 @@ import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/views/difficulty.dart';
 import 'package:explode/views/game.dart';
+import 'package:explode/views/game_multiplayer.dart';
 import 'package:explode/views/game_over.dart';
 import 'package:explode/views/group_choice.dart';
 import 'package:explode/views/players_choice.dart';
@@ -27,7 +28,7 @@ void main() {
         theme: ThemeData(
           backgroundColor: primaryColor,
         ),
-        home: const GroupChoice(),
+        home: const GameMultiplayer(),
         // const Game(
         //   operators: ['+', '-', 'x', '/'],
         //   difficulty: '1',
@@ -35,9 +36,7 @@ void main() {
         // ),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
-          difficultyRoute: (context) => const Difficulty(
-                groupId: -2,
-              ),
+          difficultyRoute: (context) => const Difficulty(),
           gameRoute: (context) => const Game(
                 operators: ['+', '-'],
                 difficulty: '1',
