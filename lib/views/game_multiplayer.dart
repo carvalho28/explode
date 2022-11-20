@@ -34,7 +34,7 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
   bool _startClock = false;
 
   // widget of Expression
-  late Widget _expression;
+  // late Widget _expression;
 
   // get timer value from level
   int getTimeFromLevel(int level) {
@@ -56,7 +56,10 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
     _numberOfPlayers = _players.length;
     _scores = List<int>.filled(_numberOfPlayers, 0);
     _timeLevel = getTimeFromLevel(_level);
-    _expression = Levels(level: _level);
+    // _expression = Levels(
+    //   level: _level,
+    //   correct: () {},
+    // );
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -99,7 +102,7 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
               Column(
                 children: [
                   TimerMultiplayer(
-                    startingTime: 2,
+                    startingTime: 10,
                     onEnd: () {
                       // go to next player
                       // if no players left, go to next level
@@ -133,7 +136,14 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
                   ),
                   // present the expression to the player
                   const SizedBox(height: 50),
-                  _expression,
+                  Levels(
+                    level: _level,
+                    correct: () {
+                      setState(() {
+                        _scores[_playerNow] = _scores[_playerNow] + 1;
+                      });
+                    },
+                  ),
                 ],
               ),
           ],
