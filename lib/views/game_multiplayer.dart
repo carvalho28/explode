@@ -81,7 +81,10 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
     // print(_numberOfPlayers);
     // print(_level);
     // print(_playerNow);
-    print(_scores);
+    print("scores: $_scores");
+    print("Player now: $_playerNow");
+    print("Level: $_level");
+
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -96,13 +99,23 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
               Column(
                 children: [
                   TimerMultiplayer(
-                    startingTime: 5,
+                    startingTime: 2,
                     onEnd: () {
                       // go to next player
-                      setState(() {
-                        _playerNow = (_playerNow + 1) % _numberOfPlayers;
-                        _startClock = false;
-                      });
+                      // if no players left, go to next level
+                      if (_playerNow == _numberOfPlayers - 1) {
+                        print('next level');
+                        setState(() {
+                          _playerNow = 0;
+                          _level = _level + 1;
+                          _startClock = false;
+                        });
+                      } else {
+                        setState(() {
+                          _playerNow = (_playerNow + 1) % _numberOfPlayers;
+                          _startClock = false;
+                        });
+                      }
                       WidgetsBinding.instance.addPostFrameCallback((_) async {
                         await showDialog(
                           context: context,

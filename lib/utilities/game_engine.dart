@@ -46,7 +46,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
 
   @override
   void initState() {
-    print('initState game_engine.dart');
+    // print('initState game_engine.dart');
     // Provider.of<Answers>(context, listen: false).resetCorrect();
     // Provider.of<Answers>(context, listen: false).resetWrong();
     super.initState();
@@ -141,7 +141,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
     String equation = pairEquation.s;
     String result = pairEquation.x.toString();
 
-    print('refreshing game_engine.dart');
+    // print('refreshing game_engine.dart');
 
     return Center(
       child: Column(
