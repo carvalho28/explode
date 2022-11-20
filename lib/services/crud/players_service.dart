@@ -72,15 +72,19 @@ class PlayersService {
   }
 
   // get player id with a player name
-  Future<int?> getPlayerId(String playerName) async {
+  Future<int> getPlayerId(String playerName, int groupId) async {
     final db = await instance.database;
 
     final result = await db.query(tablePlayers,
         columns: [PlayerFields.id],
-        where: '${PlayerFields.name} = ?',
-        whereArgs: [playerName]);
+        where: '${PlayerFields.name} = ? AND ${PlayerFields.groupId} = ?',
+        whereArgs: [playerName, groupId]);
 
-    return result.map((json) => PlayerModel.fromJson(json).id).toList()[0];
+    if (result.isNotEmpty) {
+      return result.first[PlayerFields.id] as int;
+    } else {
+      return -1;
+    }
   }
 
   // read all elements in the table
