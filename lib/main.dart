@@ -44,7 +44,7 @@ void main() {
         //   playerName: 'Diogo',
         //   score: 10,
         // ),
-        home: const ScoresMultiplayer(),
+        home: const MainMenu(),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
           difficultyRoute: (context) => const Difficulty(),
@@ -63,6 +63,11 @@ void main() {
               ),
           groupChoiceRoute: (context) => const GroupChoice(),
           playersChoiceRoute: (context) => const PlayersChoice(),
+          gameMultiplayerRoute: (context) => const GameMultiplayer(
+                groupId: 1,
+                playerNames: ['Player 1', 'Player 2'],
+              ),
+          scoresMultiplayerRoute: (context) => const ScoresMultiplayer(),
         },
       ),
     ),
@@ -91,6 +96,34 @@ class MainMenu extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: secondaryColor,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 20,
+                ),
+                // add shadow to the button
+                elevation: 15,
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(groupChoiceRoute);
+              },
+              child: const Text(
+                'New Game',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontFamily: fontBody,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
             // button to start the game
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -110,7 +143,7 @@ class MainMenu extends StatelessWidget {
                 Navigator.of(context).pushNamed(difficultyRoute);
               },
               child: const Text(
-                'New Game',
+                'Practice',
                 style: TextStyle(
                   fontSize: 30,
                   fontFamily: fontBody,
@@ -120,28 +153,26 @@ class MainMenu extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
+            // button to see the records
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: secondaryColor,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 50,
                   vertical: 20,
                 ),
+                // add shadow to the button
                 elevation: 15,
               ),
               onPressed: () {
-                if (Platform.isAndroid) {
-                  SystemNavigator.pop();
-                } else if (Platform.isIOS) {
-                  exit(0);
-                }
+                Navigator.of(context).pushNamed(scoresMultiplayerRoute);
               },
               child: const Text(
-                'Quit',
+                'Records',
                 style: TextStyle(
                   fontSize: 30,
                   fontFamily: fontBody,

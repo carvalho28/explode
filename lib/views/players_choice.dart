@@ -156,14 +156,17 @@ class _PlayersChoiceState extends State<PlayersChoice> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.5,
               child: TextField(
+                textAlign: TextAlign.center,
                 controller: _groupNameController,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontFamily: fontBody,
                 ),
+                maxLength: 10,
                 decoration: const InputDecoration(
                   hintText: 'Team name',
+                  counterText: '',
                   hintStyle: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -225,14 +228,19 @@ class _PlayersChoiceState extends State<PlayersChoice> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: TextField(
+                  textAlign: TextAlign.center,
                   controller: _controllers['${i + 1}'],
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontFamily: fontBody,
                   ),
+                  // max number of characters
+                  maxLength: 10,
+                  // remove the under number
                   decoration: InputDecoration(
                     hintText: 'Player ${i + 1}',
+                    counterText: '',
                     hintStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -263,12 +271,27 @@ class _PlayersChoiceState extends State<PlayersChoice> {
                     playersName.add(_controllers['${i + 1}']!.text);
                   }
                 }
-                String groupName = _groupNameController.text;
-                saveGroup(playersName, groupName);
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/group-choice',
-                  (route) => false,
-                );
+                // if some players name are empty, show a snackbar
+                if (_groupNameController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter a group name'),
+                    ),
+                  );
+                } else if (playersName.length != int.parse(_selectedPlayer!)) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter all players name'),
+                    ),
+                  );
+                } else {
+                  String groupName = _groupNameController.text;
+                  saveGroup(playersName, groupName);
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/group-choice',
+                    (route) => false,
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: secondaryColor,

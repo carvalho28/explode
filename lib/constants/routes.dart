@@ -5,3 +5,6 @@ const gameOverRoute = '/game-over';
 const recordRoute = '/record';
 const groupChoiceRoute = '/group-choice';
 const playersChoiceRoute = '/players-choice';
+const gameMultiplayerRoute = '/game-multiplayer';
+const endScreenMultiplayerRoute = '/end-screen-multiplayer';
+const scoresMultiplayerRoute = '/scores-multiplayer';
