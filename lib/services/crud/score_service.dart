@@ -1,3 +1,5 @@
+import 'package:explode/models/group_model.dart';
+import 'package:explode/models/player_model.dart';
 import 'package:explode/models/score_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -55,6 +57,24 @@ class ScoresService {
       return ScoreModel.fromJson(maps.first);
     } else {
       throw Exception('ID $id not found!');
+    }
+  }
+
+  // given a group id, return the best score and player id
+  Future<ScoreModel> getBestScore(int groupId) async {
+    final db = await instance.database;
+
+    final maps = await db.rawQuery('''
+    SELECT * FROM $tableScores
+    WHERE ${ScoreFields.groupId} = $groupId
+    ORDER BY ${ScoreFields.score} DESC
+    LIMIT 1
+    ''');
+
+    if (maps.isNotEmpty) {
+      return ScoreModel.fromJson(maps.first);
+    } else {
+      return const ScoreModel(id: -1, playerId: -1, groupId: -1, score: -1);
     }
   }
 

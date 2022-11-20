@@ -27,10 +27,6 @@ class _GroupChoiceState extends State<GroupChoice> {
   int _selectedGroupId = -1;
   // controller for the dropdown menu
   final TextEditingController _groupController = TextEditingController();
-  // DropdownMenuItem(
-  //   value: 'No group',
-  //   child: Text('No group'),
-  // );
 
   // read groups and create dropdown menu
   Future<List<DropdownMenuItem<String>>> get dropdownItems async {

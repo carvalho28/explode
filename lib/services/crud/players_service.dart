@@ -87,6 +87,22 @@ class PlayersService {
     }
   }
 
+  // get player name with a player id
+  Future<String> getPlayerName(int playerId) async {
+    final db = await instance.database;
+
+    final result = await db.query(tablePlayers,
+        columns: [PlayerFields.name],
+        where: '${PlayerFields.id} = ?',
+        whereArgs: [playerId]);
+
+    if (result.isNotEmpty) {
+      return result.first[PlayerFields.name] as String;
+    } else {
+      return '';
+    }
+  }
+
   // read all elements in the table
   Future<List<PlayerModel>> readAllPlayers() async {
     final db = await instance.database;

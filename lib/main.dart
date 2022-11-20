@@ -12,6 +12,7 @@ import 'package:explode/views/game_over.dart';
 import 'package:explode/views/group_choice.dart';
 import 'package:explode/views/players_choice.dart';
 import 'package:explode/views/record.dart';
+import 'package:explode/views/scores_multiplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -38,11 +39,12 @@ void main() {
         //   difficulty: '1',
         //   time: '2',
         // ),
-        home: const EndScreenMultiplayer(
-          groupId: 1,
-          playerName: 'Diogo',
-          score: 10,
-        ),
+        // home: const EndScreenMultiplayer(
+        //   groupId: 1,
+        //   playerName: 'Diogo',
+        //   score: 10,
+        // ),
+        home: const ScoresMultiplayer(),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
           difficultyRoute: (context) => const Difficulty(),
