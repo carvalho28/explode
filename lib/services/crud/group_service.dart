@@ -84,6 +84,16 @@ class GroupService {
     return result.map((json) => GroupModel.fromJson(json)).toList();
   }
 
+  // read all group names
+  Future<List<String>> readAllGroupNames() async {
+    final db = await instance.database;
+
+    final orderBy = '${GroupFields.name} ASC';
+    final result = await db.query(tableGroups, orderBy: orderBy);
+
+    return result.map((json) => GroupModel.fromJson(json).name).toList();
+  }
+
   Future<int> update(GroupModel group) async {
     final db = await instance.database;
 

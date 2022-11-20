@@ -56,6 +56,21 @@ class PlayersService {
     return result.map((json) => PlayerModel.fromJson(json)).toList();
   }
 
+  // ready players name with a group id
+  Future<List<String>> readPlayersName(int groupId) async {
+    final db = await instance.database;
+
+    final orderBy = '${PlayerFields.name} ASC';
+
+    final result = await db.query(tablePlayers,
+        columns: [PlayerFields.name],
+        where: '${PlayerFields.groupId} = ?',
+        whereArgs: [groupId],
+        orderBy: orderBy);
+
+    return result.map((json) => PlayerModel.fromJson(json).name).toList();
+  }
+
   // read all elements in the table
   Future<List<PlayerModel>> readAllPlayers() async {
     final db = await instance.database;

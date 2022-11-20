@@ -27,7 +27,7 @@ void main() {
         theme: ThemeData(
           backgroundColor: primaryColor,
         ),
-        home: const PlayersChoice(),
+        home: const GroupChoice(),
         // const Game(
         //   operators: ['+', '-', 'x', '/'],
         //   difficulty: '1',
@@ -49,6 +49,8 @@ void main() {
                 operators: ['+', '-'],
                 time: 2,
               ),
+          groupChoiceRoute: (context) => const GroupChoice(),
+          playersChoiceRoute: (context) => const PlayersChoice(),
         },
       ),
     ),

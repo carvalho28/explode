@@ -265,8 +265,10 @@ class _PlayersChoiceState extends State<PlayersChoice> {
                 }
                 String groupName = _groupNameController.text;
                 saveGroup(playersName, groupName);
-                // navigate to the game screen
-                // Navigator.pushNamed(context, '/game');
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/group-choice',
+                  (route) => false,
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: secondaryColor,
