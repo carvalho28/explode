@@ -79,6 +79,10 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
     });
   }
 
+  Future sleep1() {
+    return Future.delayed(const Duration(seconds: 1), () => "1");
+  }
+
   @override
   Widget build(BuildContext context) {
     // print(_groupId);
@@ -145,6 +149,9 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
                               ),
                             );
                           });
+                          // wait for the popup to be closed
+                          sleep1();
+
                           // if there is only one player left, then he wins
                           if (_scoreMap.length == 1) {
                             Navigator.pushAndRemoveUntil(
