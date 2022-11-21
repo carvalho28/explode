@@ -218,7 +218,7 @@ class _ExpressionGeneratorMultiplayerState
               if (_answer.text.isNotEmpty &&
                   RegExp(r'^-?[0-9]+$').hasMatch(_answer.text)) {
                 if (checkAnswer(result, int.parse(_answer.text))) {
-                  print(result);
+                  // print(result);
                   _answer.clear();
                   Navigator.of(context).push(
                     PageRouteBuilder(

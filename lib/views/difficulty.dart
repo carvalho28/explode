@@ -107,7 +107,7 @@ class _DifficultyState extends State<Difficulty> {
                             }
                           }
                           setState(() {});
-                          print(selectedOperators);
+                          // print(selectedOperators);
                         },
                         child: Text(
                           operator,
@@ -165,7 +165,7 @@ class _DifficultyState extends State<Difficulty> {
                           selectedDifficulty = difficulty;
                           // update the state
                           setState(() {});
-                          print(selectedDifficulty);
+                          // print(selectedDifficulty);
                         },
                         child: Text(
                           difficulty,
@@ -224,7 +224,7 @@ class _DifficultyState extends State<Difficulty> {
                           selectedTime = time;
                           // update the state
                           setState(() {});
-                          print(selectedTime);
+                          // print(selectedTime);
                         },
                         child: Text(
                           time,
@@ -259,10 +259,10 @@ class _DifficultyState extends State<Difficulty> {
                 elevation: 15,
               ),
               onPressed: () {
-                print('start game');
-                print(selectedOperators);
-                print(selectedDifficulty);
-                print(selectedTime);
+                // print('start game');
+                // print(selectedOperators);
+                // print(selectedDifficulty);
+                // print(selectedTime);
                 if (selectedOperators.isEmpty) {
                   showDialog(
                     context: context,

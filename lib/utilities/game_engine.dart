@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:explode/constants/general.dart';
 import 'package:explode/providers/answers_provider.dart';
-import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/utilities/verification_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

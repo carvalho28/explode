@@ -85,16 +85,11 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
 
   @override
   Widget build(BuildContext context) {
-    // print(_groupId);
-    // print(_players);
-    // print(_numberOfPlayers);
-    // print(_level);
-    // print(_playerNow);
-    print("scores: $_scoreMap");
-    print("Player now: $_playerNow");
-    print("Level: $_level");
+    // print("scores: $_scoreMap");
+    // print("Player now: $_playerNow");
+    // print("Level: $_level");
 
-    print("scoreMap: $_scoreMap");
+    // print("scoreMap: $_scoreMap");
 
     return Scaffold(
       backgroundColor: primaryColor,

@@ -36,9 +36,9 @@ class _GameState extends State<Game> {
     _operators = widget.operators;
     _difficulty = widget.difficulty;
     _time = int.parse(widget.time);
-    print('Difficulty: $_difficulty');
-    print('Operators: $_operators');
-    print('Time: $_time');
+    // print('Difficulty: $_difficulty');
+    // print('Operators: $_operators');
+    // print('Time: $_time');
   }
 
   @override

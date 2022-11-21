@@ -2,7 +2,6 @@ import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
 import 'package:explode/services/crud/group_service.dart';
 import 'package:explode/services/crud/players_service.dart';
-import 'package:explode/views/difficulty.dart';
 import 'package:explode/views/game_multiplayer.dart';
 import 'package:flutter/material.dart';
 
@@ -98,8 +97,8 @@ class _GroupChoiceState extends State<GroupChoice> {
                               _selectedGroup = value.toString();
                               _groupController.text = _selectedGroup!;
                             });
-                            print(_selectedGroup);
-                            print(_selectedGroupId);
+                            // print(_selectedGroup);
+                            // print(_selectedGroupId);
                           },
                           style: const TextStyle(
                             color: Colors.white,

@@ -60,13 +60,12 @@ class _PlayersChoiceState extends State<PlayersChoice> {
   Future saveGroup(List<String> playersName, String groupName) async {
     // if all players name are not empty
     if (playersName.isNotEmpty && groupName.isNotEmpty) {
-      print('Here');
       // create group
       GroupModel groupModel =
           await GroupService.instance.createGroup(GroupModel(
         name: groupName,
       ));
-      print("Group created with id: ${groupModel.id}");
+      // print("Group created with id: ${groupModel.id}");
       int groupId = groupModel.id!;
       if (groupId != -1) {
         for (String playerName in playersName) {
@@ -75,10 +74,10 @@ class _PlayersChoiceState extends State<PlayersChoice> {
           );
         }
       } else {
-        print('Group $groupId not found');
+        // print('Group $groupId not found');
       }
     } else {
-      print('empty');
+      // print('empty');
       // if one of the players name is empty, show a snackbar
       if (groupName.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -97,26 +96,26 @@ class _PlayersChoiceState extends State<PlayersChoice> {
   }
 
   // read all players with a group id
-  Future readTable() async {
-    try {
-      final result1 = await PlayersService.instance.readAllPlayers();
-      final result2 = await GroupService.instance.readAllGroups();
-      print("Table Players: $result1");
-      print("Table Groups: $result2");
-    } catch (e) {
-      print('No tables found');
-    }
-  }
+  // Future readTable() async {
+  //   try {
+  //     final result1 = await PlayersService.instance.readAllPlayers();
+  //     final result2 = await GroupService.instance.readAllGroups();
+  //     // print("Table Players: $result1");
+  //     // print("Table Groups: $result2");
+  //   } catch (e) {
+  //     // print(e);
+  //   }
+  // }
 
-  // delete table players
-  Future deleteTables() async {
-    try {
-      await PlayersService.instance.deleteTable();
-      await GroupService.instance.deleteTable();
-    } catch (e) {
-      print(e);
-    }
-  }
+  // // delete table players
+  // Future deleteTables() async {
+  //   try {
+  //     await PlayersService.instance.deleteTable();
+  //     await GroupService.instance.deleteTable();
+  //   } catch (e) {
+  //     // print(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

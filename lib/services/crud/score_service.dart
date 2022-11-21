@@ -1,5 +1,3 @@
-import 'package:explode/models/group_model.dart';
-import 'package:explode/models/player_model.dart';
 import 'package:explode/models/score_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

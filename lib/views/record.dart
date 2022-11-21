@@ -79,17 +79,17 @@ class _RecordState extends State<Record> {
   }
 
   // function to print all the records
-  Future printRecords() async {
-    List<RecordModel> records = await RecordsService.instance.readAllRecords();
-    for (RecordModel record in records) {
-      print(record.toJson());
-    }
-  }
+  // Future printRecords() async {
+  //   List<RecordModel> records = await RecordsService.instance.readAllRecords();
+  //   for (RecordModel record in records) {
+  //     // print(record.toJson());
+  //   }
+  // }
 
   @override
   void initState() {
-    print(_correctAnswers);
-    print(widget.correctAnswers);
+    // print(_correctAnswers);
+    // print(widget.correctAnswers);
     _correctAnswers = widget.correctAnswers;
     _wrongAnswers = widget.wrongAnswers;
     _operators = widget.operators.join();
@@ -104,8 +104,8 @@ class _RecordState extends State<Record> {
 
   @override
   Widget build(BuildContext context) {
-    print('Records: ');
-    printRecords();
+    // print('Records: ');
+    // printRecords();
     // print(_record!.toJson())
 
     return Scaffold(

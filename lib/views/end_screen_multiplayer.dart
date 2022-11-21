@@ -1,9 +1,6 @@
 import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
-import 'package:explode/models/group_model.dart';
-import 'package:explode/models/player_model.dart';
 import 'package:explode/models/score_model.dart';
-import 'package:explode/services/crud/group_service.dart';
 import 'package:explode/services/crud/players_service.dart';
 import 'package:explode/services/crud/score_service.dart';
 import 'package:flutter/material.dart';
@@ -33,22 +30,22 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
   late int _playerId = -1;
 
   // read table scores
-  Future<void> _printScores() async {
-    List<ScoreModel> scores = await ScoresService.instance.readAllScores();
-    print(scores);
-  }
+  // Future<void> _printScores() async {
+  //   List<ScoreModel> scores = await ScoresService.instance.readAllScores();
+  //   print(scores);
+  // }
 
-  // read table players
-  Future<void> _printPlayers() async {
-    List<PlayerModel> players = await PlayersService.instance.readAllPlayers();
-    print(players);
-  }
+  // // read table players
+  // Future<void> _printPlayers() async {
+  //   List<PlayerModel> players = await PlayersService.instance.readAllPlayers();
+  //   print(players);
+  // }
 
-  // read table groups
-  Future<void> _printGroups() async {
-    List<GroupModel> groups = await GroupService.instance.readAllGroups();
-    print(groups);
-  }
+  // // read table groups
+  // Future<void> _printGroups() async {
+  //   List<GroupModel> groups = await GroupService.instance.readAllGroups();
+  //   print(groups);
+  // }
 
   // add score to table scores
   Future _addScore() async {
@@ -56,7 +53,7 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
       _playerId =
           (await PlayersService.instance.getPlayerId(_playerName, _groupId));
     } catch (e) {
-      print('Error on converting name to id: $e');
+      // print('Error on converting name to id: $e');
     }
     if (_playerId != -1) {
       try {
@@ -66,10 +63,10 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
           score: _score,
         ));
       } catch (e) {
-        print('Error on adding score: $e');
+        // print('Error on adding score: $e');
       }
     } else {
-      print('Error on adding score: player id not found');
+      // print('Error on adding score: player id not found');
     }
   }
 
@@ -83,9 +80,9 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
 
   @override
   Widget build(BuildContext context) {
-    _printScores();
-    _printPlayers();
-    _printGroups();
+    // _printScores();
+    // _printPlayers();
+    // _printGroups();
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -222,7 +219,7 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
               child: ElevatedButton(
                 onPressed: () {
                   _addScore();
-                  _printScores();
+                  // _printScores();
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     mainMenuRoute,
                     (route) => false,

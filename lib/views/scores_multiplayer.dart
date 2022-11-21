@@ -6,8 +6,6 @@ import 'package:explode/services/crud/players_service.dart';
 import 'package:explode/services/crud/score_service.dart';
 import 'package:flutter/material.dart';
 
-import '../models/player_model.dart';
-
 class ScoresMultiplayer extends StatefulWidget {
   const ScoresMultiplayer({super.key});
 
@@ -42,7 +40,7 @@ class _ScoresMultiplayerState extends State<ScoresMultiplayer> {
   Future<Map<int, String>> _getHighestScore() async {
     int _groupId = await GroupService.instance.getGroupId(_selectedGroup!);
     ScoreModel scores = await ScoresService.instance.getBestScore(_groupId);
-    print(scores);
+    // print(scores);
     if (scores.playerId == -1) {
       return {-1: 'No scores yet'};
     } else {
@@ -52,15 +50,15 @@ class _ScoresMultiplayerState extends State<ScoresMultiplayer> {
     }
   }
 
-  // print all tables
-  Future<void> _printAllTables() async {
-    List<PlayerModel> players = await PlayersService.instance.readAllPlayers();
-    print(players);
-    List<GroupModel> groups = await GroupService.instance.readAllGroups();
-    print(groups);
-    List<ScoreModel> scores = await ScoresService.instance.readAllScores();
-    print(scores);
-  }
+  // // print all tables
+  // Future<void> _printAllTables() async {
+  //   List<PlayerModel> players = await PlayersService.instance.readAllPlayers();
+  //   print(players);
+  //   List<GroupModel> groups = await GroupService.instance.readAllGroups();
+  //   print(groups);
+  //   List<ScoreModel> scores = await ScoresService.instance.readAllScores();
+  //   print(scores);
+  // }
 
   @override
   Widget build(BuildContext context) {

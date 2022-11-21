@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
 import 'package:explode/providers/answers_provider.dart';
@@ -14,7 +12,6 @@ import 'package:explode/views/players_choice.dart';
 import 'package:explode/views/record.dart';
 import 'package:explode/views/scores_multiplayer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
