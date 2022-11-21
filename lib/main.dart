@@ -3,7 +3,6 @@ import 'package:explode/constants/routes.dart';
 import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/views/difficulty.dart';
-import 'package:explode/views/end_screen_multiplayer.dart';
 import 'package:explode/views/game.dart';
 import 'package:explode/views/game_multiplayer.dart';
 import 'package:explode/views/game_over.dart';
@@ -42,11 +41,7 @@ void main() {
         //   score: 10,
         // ),
         // home: const MainMenu(),
-        home: const EndScreenMultiplayer(
-          groupId: 1,
-          playerName: 'bbbbb',
-          score: 10,
-        ),
+        home: const MainMenu(),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
           difficultyRoute: (context) => const Difficulty(),

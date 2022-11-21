@@ -198,7 +198,7 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
             ),
           ),
           const SizedBox(
-            height: 40,
+            height: 15,
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(

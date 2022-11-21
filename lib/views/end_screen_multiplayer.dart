@@ -192,7 +192,7 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
                   child: IconButton(
                     onPressed: () {
                       Share.share(
-                          'I just scored $_score points in Explode! Can you beat me?');
+                          'I just scored $_score points aginst my friends in Explode! Can you beat me?');
                     },
                     icon: const Icon(
                       Icons.share,
