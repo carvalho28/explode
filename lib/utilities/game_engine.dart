@@ -279,6 +279,11 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
               ),
               onPressed: () {
                 _answer.clear();
+                pairEquation = generateEquation();
+                equation = pairEquation.s;
+                result = pairEquation.x.toString();
+                // new equation
+                print('new equation: $equation');
                 setState(() {});
               },
               child: const Text(

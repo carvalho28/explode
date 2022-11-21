@@ -120,7 +120,7 @@ class _RecordState extends State<Record> {
           if (snapshot.connectionState == ConnectionState.done) {
             return Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(
                     height: 30,
@@ -322,6 +322,9 @@ class _RecordState extends State<Record> {
                         fontFamily: fontBody,
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 50,
                   ),
                 ],
               ),
