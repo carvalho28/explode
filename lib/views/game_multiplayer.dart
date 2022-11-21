@@ -1,12 +1,11 @@
 import 'dart:math';
-
 import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
-import 'package:explode/utilities/game_engine.dart';
 import 'package:explode/utilities/levels.dart';
 import 'package:explode/utilities/popup.dart';
-import 'package:explode/utilities/timer.dart';
+import 'package:explode/utilities/popup_eliminated.dart';
 import 'package:explode/utilities/timer_multiplayer.dart';
+import 'package:explode/views/end_screen_multiplayer.dart';
 import 'package:flutter/material.dart';
 
 class GameMultiplayer extends StatefulWidget {
@@ -60,7 +59,9 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
     _numberOfPlayers = _players.length;
     // _scores = List<int>.filled(_numberOfPlayers, 0);
     _timeLevel = getTimeFromLevel(_level);
-    _scoreMap.addAll({widget.playerNames[0]: 0, widget.playerNames[1]: 0});
+    _scoreMap.addAll({
+      for (int i = 0; i < _numberOfPlayers; i++) _players[i]: 0,
+    });
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -96,6 +97,16 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: [
+          IconButton(
+            // cross icon
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, mainMenuRoute, (route) => false);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -105,34 +116,56 @@ class _GameMultiplayerState extends State<GameMultiplayer> {
               Column(
                 children: [
                   TimerMultiplayer(
-                    startingTime: 10,
+                    startingTime: _timeLevel,
                     onEnd: () {
                       // go to next player
                       // if no players left, go to next level
                       if (_playerNow == _numberOfPlayers - 1) {
-                        print('next level');
                         // check if there is a minimum in the scores
                         int scoreMin = _scoreMap.values.reduce(min);
                         // if all elements are equal, then there is no minimum
                         if (_scoreMap.values
                             .every((element) => element == scoreMin)) {
-                          print('all equal');
                         } else {
-                          // remove all players with the minimum score
+                          // show popup with the players that will be eliminated
+                          List<String> playersEliminated = [];
+                          _scoreMap.forEach((key, value) {
+                            if (value == scoreMin) {
+                              playersEliminated.add(key);
+                            }
+                          });
                           _scoreMap
                               .removeWhere((key, value) => value == scoreMin);
+                          _numberOfPlayers = _scoreMap.length;
+                          Future.delayed(const Duration(milliseconds: 300), () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => PopupEliminated(
+                                playerNames: playersEliminated,
+                              ),
+                            );
+                          });
                           // if there is only one player left, then he wins
                           if (_scoreMap.length == 1) {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                              mainMenuRoute,
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    EndScreenMultiplayer(
+                                  groupId: _groupId,
+                                  playerName: _scoreMap.keys.first,
+                                  score: _scoreMap.values.first,
+                                ),
+                              ),
                               (route) => false,
                             );
+                            return;
                           }
-                          return;
                         }
                         setState(() {
                           _playerNow = 0;
                           _level = _level + 1;
+                          _timeLevel = getTimeFromLevel(_level);
                           _scoreMap.updateAll((key, value) => 0);
                           _startClock = false;
                         });

@@ -41,7 +41,7 @@ class _LevelsState extends State<Levels> {
       );
     } else if (_level == 2) {
       return ExpressionGeneratorMultiplayer(
-        operators: const ['+', '-', 'x'],
+        operators: const ['+', '-', '*'],
         difficulty: '2',
         skipEnabled: false,
         onEndCorrect: () {
@@ -50,7 +50,7 @@ class _LevelsState extends State<Levels> {
       );
     } else if (_level == 3) {
       return ExpressionGeneratorMultiplayer(
-        operators: ['+', '-', 'x', '/'],
+        operators: ['+', '-', '*', '/'],
         difficulty: '2',
         skipEnabled: false,
         onEndCorrect: () {
@@ -59,7 +59,7 @@ class _LevelsState extends State<Levels> {
       );
     } else {
       return ExpressionGeneratorMultiplayer(
-        operators: ['+', '-', 'x', '/'],
+        operators: ['+', '-', '*', '/'],
         difficulty: '3',
         skipEnabled: false,
         onEndCorrect: () {

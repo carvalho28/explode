@@ -127,7 +127,7 @@ class _RecordState extends State<Record> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 80,
+                    height: 30,
                   ),
                   TweenAnimationBuilder(
                     tween: Tween<double>(begin: 0, end: 1),
@@ -232,12 +232,7 @@ class _RecordState extends State<Record> {
                     ],
                   ),
                   // share button
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  //  button with icon to share on the right
                   Row(
-                    // align the button to the right
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
@@ -258,7 +253,7 @@ class _RecordState extends State<Record> {
                     ],
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
                   // button with restart icon
                   ElevatedButton(

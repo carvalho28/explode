@@ -66,25 +66,6 @@ class VerificationIcon extends StatelessWidget {
     Future<void>.delayed(const Duration(milliseconds: 300), () {
       Navigator.of(context).pop();
     });
-    // return Center(
-    //   child: Container(
-    //     width: 100,
-    //     height: 100,
-    //     decoration: BoxDecoration(
-    //       color: correct ? correctColor : incorrectColor,
-    //       borderRadius: BorderRadius.circular(50),
-    //     ),
-    //     child: Center(
-    //       child: Icon(
-    //         correct ? Icons.check : Icons.close,
-    //         color: Colors.white,
-    //         size: 50,
-    //       ),
-    //     ),
-    //   ),
-    // );
-
-    // return with container having less opacity
     return Center(
       child: Container(
         width: 100,

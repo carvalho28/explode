@@ -1,13 +1,9 @@
-import 'dart:math';
-
 import 'package:explode/constants/general.dart';
 import 'package:explode/constants/routes.dart';
-import 'package:explode/main.dart';
 import 'package:explode/providers/answers_provider.dart';
 import 'package:explode/providers/time_ender_provider.dart';
 import 'package:explode/utilities/game_engine.dart';
 import 'package:explode/utilities/timer.dart';
-import 'package:explode/utilities/verification_icon.dart';
 import 'package:explode/views/record.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -83,7 +79,7 @@ class _GameState extends State<Game> {
             // icon to go back to the main menu on the top right corner
             actions: [
               IconButton(
-                icon: const Icon(Icons.exit_to_app_outlined),
+                icon: const Icon(Icons.close),
                 onPressed: () {
                   Provider.of<EndTimer>(context, listen: false).resetEndTimer();
                   Provider.of<Answers>(context, listen: false).resetCorrect();

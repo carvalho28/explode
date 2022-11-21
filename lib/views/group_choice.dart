@@ -3,6 +3,7 @@ import 'package:explode/constants/routes.dart';
 import 'package:explode/services/crud/group_service.dart';
 import 'package:explode/services/crud/players_service.dart';
 import 'package:explode/views/difficulty.dart';
+import 'package:explode/views/game_multiplayer.dart';
 import 'package:flutter/material.dart';
 
 class GroupChoice extends StatefulWidget {
@@ -124,6 +125,7 @@ class _GroupChoiceState extends State<GroupChoice> {
                                   builder: (BuildContext context,
                                       AsyncSnapshot<List<String>> snapshot) {
                                     if (snapshot.hasData) {
+                                      List<String> players = snapshot.data!;
                                       return Column(
                                         children: [
                                           const SizedBox(
@@ -154,7 +156,7 @@ class _GroupChoiceState extends State<GroupChoice> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.5,
+                                                            0.3,
                                                     child: Text(
                                                       '• ${snapshot.data![i]}',
                                                       style: const TextStyle(
@@ -175,6 +177,21 @@ class _GroupChoiceState extends State<GroupChoice> {
                                           ElevatedButton(
                                             onPressed: () {
                                               // go to game multiplayer
+                                              // Navigator.pushNamed(
+                                              //     context, gameMultiplayerRoute,
+                                              //     arguments: _selectedGroupId);
+                                              Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          GameMultiplayer(
+                                                    groupId: _selectedGroupId,
+                                                    playerNames: players,
+                                                  ),
+                                                ),
+                                                (route) => false,
+                                              );
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: secondaryColor,
