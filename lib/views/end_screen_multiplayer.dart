@@ -7,6 +7,7 @@ import 'package:explode/services/crud/group_service.dart';
 import 'package:explode/services/crud/players_service.dart';
 import 'package:explode/services/crud/score_service.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class EndScreenMultiplayer extends StatefulWidget {
   const EndScreenMultiplayer({
@@ -93,11 +94,8 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 100,
-            ),
             TweenAnimationBuilder(
               tween: Tween<double>(begin: 0, end: 1),
               duration: const Duration(seconds: 3),
@@ -129,7 +127,7 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
                 'Winner',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 60,
+                  fontSize: 50,
                   fontFamily: fontGameOver,
                 ),
               ),
@@ -157,29 +155,59 @@ class _EndScreenMultiplayerState extends State<EndScreenMultiplayer> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
-            // winner score
-            TweenAnimationBuilder(
-              tween: Tween<double>(begin: 0, end: 1),
-              duration: const Duration(seconds: 3),
-              builder: (context, double value, child) {
-                return Transform.scale(
-                  scale: value,
-                  child: child,
-                );
-              },
-              child: Text(
-                'Score: $_score',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontFamily: fontBody,
+            // share button
+            Row(
+              // score text and share icon
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TweenAnimationBuilder(
+                  tween: Tween<double>(begin: 0, end: 1),
+                  duration: const Duration(seconds: 3),
+                  builder: (context, double value, child) {
+                    return Transform.scale(
+                      scale: value,
+                      child: child,
+                    );
+                  },
+                  child: Text(
+                    'Score: $_score',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontFamily: fontBody,
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  width: 10,
+                ),
+                TweenAnimationBuilder(
+                  tween: Tween<double>(begin: 0, end: 1),
+                  duration: const Duration(seconds: 3),
+                  builder: (context, double value, child) {
+                    return Transform.scale(
+                      scale: value,
+                      child: child,
+                    );
+                  },
+                  child: IconButton(
+                    onPressed: () {
+                      Share.share(
+                          'I just scored $_score points in Explode! Can you beat me?');
+                    },
+                    icon: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
-              height: 50,
+              height: 40,
             ),
             // button to go to home
             TweenAnimationBuilder(

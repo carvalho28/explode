@@ -49,14 +49,14 @@ class _DifficultyState extends State<Difficulty> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        elevation: 10,
+        elevation: 0,
       ),
       backgroundColor: primaryColor,
       body: Center(
         child: Column(
           children: [
             const SizedBox(
-              height: 40,
+              height: 10,
             ),
             //  text with choose operations
             const Text(

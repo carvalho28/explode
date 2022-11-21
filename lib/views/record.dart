@@ -35,10 +35,6 @@ class _RecordState extends State<Record> {
   late String _difficulty;
   late int _time;
 
-  // List<String> restartOperators = [];
-  // int restartDifficulty = 0;
-  // int restartTime = 0;
-
   late RecordModel? _record;
 
   Future refreshRecord() async {

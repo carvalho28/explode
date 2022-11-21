@@ -44,7 +44,12 @@ void main() {
         //   playerName: 'Diogo',
         //   score: 10,
         // ),
-        home: const MainMenu(),
+        // home: const MainMenu(),
+        home: const EndScreenMultiplayer(
+          groupId: 1,
+          playerName: 'bbbbb',
+          score: 10,
+        ),
         routes: {
           mainMenuRoute: (context) => const MainMenu(),
           difficultyRoute: (context) => const Difficulty(),

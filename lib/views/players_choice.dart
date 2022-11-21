@@ -121,201 +121,209 @@ class _PlayersChoiceState extends State<PlayersChoice> {
   @override
   Widget build(BuildContext context) {
     // let the user choose the number of players and prompt them to enter their names
-    return Scaffold(
-      backgroundColor: primaryColor,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Create a Group',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 40,
-                fontFamily: fontBody,
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            const Text(
-              'Group name:',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: fontBody,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: TextField(
-                textAlign: TextAlign.center,
-                controller: _groupNameController,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: fontBody,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        backgroundColor: primaryColor,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Create a Group',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontFamily: fontBody,
+                  ),
                 ),
-                maxLength: 10,
-                decoration: const InputDecoration(
-                  hintText: 'Team name',
-                  counterText: '',
-                  hintStyle: TextStyle(
+                const SizedBox(
+                  height: 50,
+                ),
+                const Text(
+                  'Group name:',
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontFamily: fontBody,
                   ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    controller: _groupNameController,
+                    style: const TextStyle(
                       color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: fontBody,
+                    ),
+                    maxLength: 10,
+                    decoration: const InputDecoration(
+                      hintText: 'Team name',
+                      counterText: '',
+                      hintStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: fontBody,
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            const Text(
-              'Number of players:',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: fontBody,
-              ),
-            ),
-            DropdownButton(
-              value: _selectedPlayer,
-              items: dropdownItems,
-              onChanged: (value) {
-                setState(() {
-                  _selectedPlayer = value as String;
-                });
-              },
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: fontBody,
-              ),
-              // on selected, the dropdown must match the color scheme
-              dropdownColor: primaryColor,
-              iconEnabledColor: Colors.white,
-            ),
-            // prompt user to enter their names
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Enter your names:',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: fontBody,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            // create a TextController for each player
-            for (int i = 0; i < int.parse(_selectedPlayer!); i++)
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  controller: _controllers['${i + 1}'],
+                const SizedBox(
+                  height: 50,
+                ),
+                const Text(
+                  'Number of players:',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: fontBody,
+                  ),
+                ),
+                DropdownButton(
+                  value: _selectedPlayer,
+                  items: dropdownItems,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedPlayer = value as String;
+                    });
+                  },
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontFamily: fontBody,
                   ),
-                  // max number of characters
-                  maxLength: 10,
-                  // remove the under number
-                  decoration: InputDecoration(
-                    hintText: 'Player ${i + 1}',
-                    counterText: '',
-                    hintStyle: const TextStyle(
+                  // on selected, the dropdown must match the color scheme
+                  dropdownColor: primaryColor,
+                  iconEnabledColor: Colors.white,
+                ),
+                // prompt user to enter their names
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'Enter your names:',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: fontBody,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                // create a TextController for each player
+                for (int i = 0; i < int.parse(_selectedPlayer!); i++)
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      controller: _controllers['${i + 1}'],
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: fontBody,
+                      ),
+                      // max number of characters
+                      maxLength: 10,
+                      // remove the under number
+                      decoration: InputDecoration(
+                        hintText: 'Player ${i + 1}',
+                        counterText: '',
+                        hintStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: fontBody,
+                        ),
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                const SizedBox(
+                  height: 50,
+                ),
+                // button to start the game
+                ElevatedButton(
+                  onPressed: () {
+                    List<String> playersName = [];
+                    for (int i = 0; i < int.parse(_selectedPlayer!); i++) {
+                      if (_controllers['${i + 1}']!.text.isNotEmpty) {
+                        playersName.add(_controllers['${i + 1}']!.text);
+                      }
+                    }
+                    // if some players name are empty, show a snackbar
+                    if (_groupNameController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please enter a group name'),
+                        ),
+                      );
+                    } else if (playersName.length !=
+                        int.parse(_selectedPlayer!)) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please enter all players name'),
+                        ),
+                      );
+                    } else {
+                      String groupName = _groupNameController.text;
+                      saveGroup(playersName, groupName);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/group-choice',
+                        (route) => false,
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: secondaryColor,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 50,
+                      vertical: 20,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                  ),
+                  child: const Text(
+                    'Create Group',
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontFamily: fontBody,
                     ),
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
                   ),
                 ),
-              ),
-            const SizedBox(
-              height: 50,
-            ),
-            // button to start the game
-            ElevatedButton(
-              onPressed: () {
-                List<String> playersName = [];
-                for (int i = 0; i < int.parse(_selectedPlayer!); i++) {
-                  if (_controllers['${i + 1}']!.text.isNotEmpty) {
-                    playersName.add(_controllers['${i + 1}']!.text);
-                  }
-                }
-                // if some players name are empty, show a snackbar
-                if (_groupNameController.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please enter a group name'),
-                    ),
-                  );
-                } else if (playersName.length != int.parse(_selectedPlayer!)) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please enter all players name'),
-                    ),
-                  );
-                } else {
-                  String groupName = _groupNameController.text;
-                  saveGroup(playersName, groupName);
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/group-choice',
-                    (route) => false,
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 50,
-                  vertical: 20,
+                const SizedBox(
+                  height: 50,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-              ),
-              child: const Text(
-                'Create Group',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: fontBody,
-                ),
-              ),
+              ],
             ),
-            const SizedBox(
-              height: 50,
-            ),
-          ],
+          ),
         ),
       ),
     );
