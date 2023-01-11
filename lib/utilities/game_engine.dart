@@ -246,6 +246,19 @@ class _ExpressionGeneratorState extends State<ExpressionGenerator> {
                   );
                   Provider.of<Answers>(context, listen: false).incrementWrong();
                 }
+              } else {
+                // show snackbar if the user didn't enter a number, if a snackbar is already showing, don't show another one
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Please enter a number',
+                      textAlign: TextAlign.center,
+                    ),
+                    backgroundColor: tertiaryColor,
+                    duration: Duration(seconds: 1),
+                  ),
+                );
               }
             },
             child: const Text(
